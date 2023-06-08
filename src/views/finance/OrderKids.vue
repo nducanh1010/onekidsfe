@@ -375,6 +375,7 @@ export default {
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
+      console.log('Mutilplesel',this.multipleSelection)
     },
     closeOrderKidsCasherDialog() {
       this.showOrderKidsCasherDialog = false;
