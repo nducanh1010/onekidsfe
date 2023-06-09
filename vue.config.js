@@ -4,6 +4,6 @@ module.exports = {
         devtool: 'source-map'
     },
     devServer: {
-        port: 9591
+        port: 9592
       }
 }

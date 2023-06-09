@@ -156,10 +156,10 @@
 
 <script>
 import ChartStatisticalService from "@/services/ChartStatisticalService";
-import GradeService from "@/services/GradeService";
 import MaClassService from "@/services/MaClassService";
 import TeacherService from "@/services/TeacherService";
 import ChartLine from "./chart/ChartLine.vue";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   components: { ChartLine },
@@ -174,7 +174,7 @@ export default {
         { key: "month", value: "Theo tháng" },
         { key: "year", value: "Theo năm" },
       ],
-      gradeOfSchoolList: [],
+      // gradeOfSchoolList: [],
       classOfGradeList: [],
       dataSearch: {
         idGrade: "",
@@ -205,8 +205,10 @@ export default {
     getAppTypeUserLogin() {
       return this.$store.state.auth.user.appType;
     },
+    ...mapGetters('gradeStore', ['gradeOfSchoolList']),
   },
   methods: {
+    ...mapActions('gradeStore', ['fetchDataGradeOfSchoolList']),
     fillData() {
       this.dataConllection = {
         chartData: {
@@ -279,15 +281,15 @@ export default {
       await this.getClassInGrade();
       this.searchByProperties();
     },
-    async getAllGrade() {
-      await GradeService.getGradeInPrinciple()
-        .then((resp) => {
-          this.gradeOfSchoolList = resp.data.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+    // async getAllGrade() {
+    //   await GradeService.getGradeInPrinciple()
+    //     .then((resp) => {
+    //       this.gradeOfSchoolList = resp.data.data;
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
     /**
      * tìm tất cả lớp trong một khối
      */
@@ -389,7 +391,7 @@ export default {
      */
     async fetchDataMany() {
       if (this.getAppTypeUserLogin == "plus") {
-        await Promise.all([this.getAllGrade()]);
+        // await Promise.all([this.getAllGrade()]);
         await this.getClassInGrade();
       } else if (this.getAppTypeUserLogin == "teacher") {
         await Promise.all([this.getClassListTeacher()]);

@@ -4,88 +4,88 @@
       <div class="button-click-left">
         <!-- trạng thái đăng nhập -->
         <el-select
-          style="width: 150px; margin-right: 5px"
-          v-model="dataSearch.loginStatus"
-          @change="searchHeaderMethod()"
-          clearable
-          placeholder="Trạng thái"
+            style="width: 150px; margin-right: 5px"
+            v-model="dataSearch.loginStatus"
+            @change="searchHeaderMethod()"
+            clearable
+            placeholder="Trạng thái"
         >
           <el-option
-            v-for="item in loginStatusList"
-            :key="item.key"
-            :value="item.key"
-            :label="item.value"
+              v-for="item in loginStatusList"
+              :key="item.key"
+              :value="item.key"
+              :label="item.value"
           ></el-option>
         </el-select>
         <!-- chọn trạng thái -->
         <el-select
-          class="button-left-status"
-          v-model="dataSearch.status"
-          @change="searchHeaderMethod()"
-          placeholder="Trạng thái"
+            class="button-left-status"
+            v-model="dataSearch.status"
+            @change="searchHeaderMethod()"
+            placeholder="Trạng thái"
         >
           <el-option
-            v-for="item in kidStatusList"
-            :key="item.key"
-            :value="item.key"
-            :label="item.value"
+              v-for="item in kidStatusList"
+              :key="item.key"
+              :value="item.key"
+              :label="item.value"
           ></el-option>
         </el-select>
 
         <!-- chọn khối -->
         <el-select
-          v-if="this.getAppTypeUserLogin == 'plus'"
-          class="button-left-class"
-          clearable
-          v-model="dataSearch.idGrade"
-          @change="changeGradeMethod()"
-          placeholder="Chọn khối"
+            v-if="this.getAppTypeUserLogin == 'plus'"
+            class="button-left-class"
+            clearable
+            v-model="dataSearch.idGrade"
+            @change="changeGradeMethod()"
+            placeholder="Chọn khối"
         >
           <el-option
-            v-for="item in gradeList"
-            :key="item.id"
-            :value="item.id"
-            :label="item.gradeName"
+              v-for="item in gradeOfSchoolList"
+              :key="item.id"
+              :value="item.id"
+              :label="item.gradeName"
           ></el-option>
         </el-select>
 
         <!-- chọn lớp -->
         <el-select
-          class="button-left-class"
-          filterable
-          :clearable="this.getAppTypeUserLogin == 'plus'"
-          v-model="dataSearch.idClass"
-          placeholder="Chọn lớp"
-          @change="searchHeaderMethod()"
+            class="button-left-class"
+            filterable
+            :clearable="this.getAppTypeUserLogin == 'plus'"
+            v-model="dataSearch.idClass"
+            placeholder="Chọn lớp"
+            @change="searchHeaderMethod()"
         >
           <el-option
-            v-for="item in classList"
-            :key="item.id"
-            :value="item.id"
-            :label="item.className"
+              v-for="item in classList"
+              :key="item.id"
+              :value="item.id"
+              :label="item.className"
           ></el-option>
         </el-select>
 
         <!-- nhập ô tìm kiếm -->
         <el-input
-          class="button-left-class"
-          style="width: 280px"
-          placeholder="Nhập tên, biệt danh, SĐT"
-          clearable
-          v-model="dataSearch.nameOrPhone"
-          @clear="searchHeaderMethod()"
-          @keyup.enter.native="searchHeaderMethod()"
+            class="button-left-class"
+            style="width: 280px"
+            placeholder="Nhập tên, biệt danh, SĐT"
+            clearable
+            v-model="dataSearch.nameOrPhone"
+            @clear="searchHeaderMethod()"
+            @keyup.enter.native="searchHeaderMethod()"
         >
           <el-button
-            slot="append"
-            icon="el-icon-search"
-            @click="searchHeaderMethod()"
+              slot="append"
+              icon="el-icon-search"
+              @click="searchHeaderMethod()"
           ></el-button>
         </el-input>
         <el-button @click="searchExtendDialog()">
           <i
-            class="el-icon-circle-plus"
-            :style="dataSearch.dateList.length > 0 ? 'color: #FD4803' : ''"
+              class="el-icon-circle-plus"
+              :style="dataSearch.dateList.length > 0 ? 'color: #FD4803' : ''"
           ></i>
         </el-button>
       </div>
@@ -93,73 +93,79 @@
       <!-- button lick  -->
       <div class="button-click row-data">
         <el-button
-          v-if="checkPermission(['kids_list_update'])"
-          class="button-over"
-          type="success"
-          @click="createStudentDialog()"
+            v-if="checkPermission(['kids_list_update'])"
+            class="button-over"
+            type="success"
+            @click="createStudentDialog()"
         >
-          <i class="el-icon-plus" />
+          <i class="el-icon-plus"/>
           Thêm mới
         </el-button>
         <el-dropdown
-          v-if="checkPermission(['kids_list_app']) || checkPermission(['kids_list_sms'])"
-          @command="handleSendNotify"
+            v-if="checkPermission(['kids_list_app']) || checkPermission(['kids_list_sms'])"
+            @command="handleSendNotify"
         >
           <el-button class="button-over" type="success">
             Gửi tin
-            <i class="el-icon-caret-bottom" />
+            <i class="el-icon-caret-bottom"/>
           </el-button>
           <el-dropdown-menu>
             <el-dropdown-item
-              v-if="checkPermission(['kids_list_app'])"
-              command="createNotifyApp"
-              >Gửi qua App</el-dropdown-item
+                v-if="checkPermission(['kids_list_app'])"
+                command="createNotifyApp"
+            >Gửi qua App
+            </el-dropdown-item
             >
             <el-dropdown-item
-              v-if="checkPermission(['kids_list_sms'])"
-              command="createNotifySms"
-              >Gửi qua SMS</el-dropdown-item
+                v-if="checkPermission(['kids_list_sms'])"
+                command="createNotifySms"
+            >Gửi qua SMS
+            </el-dropdown-item
             >
             <el-dropdown-item
-              v-if="checkPermission(['kids_list_sms'])"
-              command="sendAccount"
-              v-loading.fullscreen.lock="fullscreenLoading"
-              >Gửi tài khoản</el-dropdown-item
+                v-if="checkPermission(['kids_list_sms'])"
+                command="sendAccount"
+                v-loading.fullscreen.lock="fullscreenLoading"
+            >Gửi tài khoản
+            </el-dropdown-item
             >
           </el-dropdown-menu>
         </el-dropdown>
         <el-dropdown @command="handleCommandAction">
           <el-button class="button-over" type="success">
             Tác vụ
-            <i class="el-icon-caret-bottom" />
+            <i class="el-icon-caret-bottom"/>
           </el-button>
           <el-dropdown-menu>
             <span v-if="checkPermission(['kids_list_update'])">
               <el-dropdown-item command="changeClass">Chuyển lớp</el-dropdown-item>
               <el-dropdown-item command="appActive">Kích hoạt App</el-dropdown-item>
               <el-dropdown-item command="appCancelActive"
-                >Hủy kích hoạt App</el-dropdown-item
+              >Hủy kích hoạt App</el-dropdown-item
               >
               <el-dropdown-item command="sMSregisterReceive"
-                >Đăng ký nhận SMS</el-dropdown-item
+              >Đăng ký nhận SMS</el-dropdown-item
               >
               <el-dropdown-item command="sMScancelReceive"
-                >Hủy đăng ký SMS</el-dropdown-item
+              >Hủy đăng ký SMS</el-dropdown-item
               >
               <el-dropdown-item v-if="deleteStatusButton" command="studentsDelete"
-                >Xóa học sinh</el-dropdown-item
+              >Xóa học sinh</el-dropdown-item
               >
             </span>
             <el-dropdown-item command="excelImport">Nhập File Excel</el-dropdown-item>
             <el-dropdown-item command="excelExport">Xuất File Excel</el-dropdown-item>
             <el-dropdown-item command="excelMessageParent"
-              >Xuất Excel lời nhắn</el-dropdown-item
+            >Xuất Excel lời nhắn
+            </el-dropdown-item
             >
             <el-dropdown-item command="excelMedicine"
-              >Xuất Excel dặn thuốc</el-dropdown-item
+            >Xuất Excel dặn thuốc
+            </el-dropdown-item
             >
             <el-dropdown-item command="excelAbsentLetter"
-              >Xuất Excel Xin nghỉ</el-dropdown-item
+            >Xuất Excel Xin nghỉ
+            </el-dropdown-item
             >
             <el-dropdown-item command="excelSMS">Xuất Excel SMS</el-dropdown-item>
             <el-dropdown-item command="groupOut">Ra trường</el-dropdown-item>
@@ -171,58 +177,59 @@
     <!-- nội dung thông tin chính -->
     <div class="table-content row-data">
       <el-table
-        :empty-text="textTable"
-        v-loading="loadingData"
-        :element-loading-text="$tableLoadding"
-        element-loading-spinner="el-icon-loading"
-        element-loading-background="rgba(255,255,255, 0)"
-        :data="studentList"
-        highlight-current-row
-        :cell-style="tableRowStyle"
-        :header-cell-style="tableHeaderColor"
-        @selection-change="handleSelectionChange"
-        :max-height="$tableMaxHeight"
-        border
+          :empty-text="textTable"
+          v-loading="loadingData"
+          :element-loading-text="$tableLoadding"
+          element-loading-spinner="el-icon-loading"
+          element-loading-background="rgba(255,255,255, 0)"
+          :data="studentList"
+          highlight-current-row
+          :cell-style="tableRowStyle"
+          :header-cell-style="tableHeaderColor"
+          @selection-change="handleSelectionChange"
+          :max-height="$tableMaxHeight"
+          border
       >
         <el-table-column
-          type="selection"
-          fixed
-          align="center"
-          width="50"
+            type="selection"
+            fixed
+            align="center"
+            width="50"
         ></el-table-column>
         <el-table-column
-          type="index"
-          fixed
-          align="center"
-          label="STT"
-          width="50"
+            type="index"
+            fixed
+            align="center"
+            label="STT"
+            width="50"
         ></el-table-column>
         <el-table-column
-          fixed
-          align="center"
-          label="Mã HS"
-          prop="kidCode"
-          width="100"
+            fixed
+            align="center"
+            label="Mã HS"
+            prop="kidCode"
+            width="100"
         ></el-table-column>
         <el-table-column min-width="170" fixed label="Họ tên">
           <template slot-scope="scope">
             <el-button
-              class="click-in-row"
-              type="text"
-              @click="clickFullName(scope.$index, scope.row)"
-              >{{ scope.row.fullName }}</el-button
+                class="click-in-row"
+                type="text"
+                @click="clickFullName(scope.$index, scope.row)"
+            >{{ scope.row.fullName }}
+            </el-button
             >
           </template>
         </el-table-column>
         <el-table-column
-          label="Biệt danh"
-          prop="nickName"
-          min-width="100"
+            label="Biệt danh"
+            prop="nickName"
+            min-width="100"
         ></el-table-column>
         <el-table-column
-          prop="maClass.className"
-          min-width="130"
-          label="Lớp"
+            prop="maClass.className"
+            min-width="130"
+            label="Lớp"
         ></el-table-column>
         <el-table-column align="center" min-width="130" label="Ngày nhập học">
           <template slot-scope="scope">
@@ -236,20 +243,20 @@
           </template>
         </el-table-column>
         <el-table-column
-          prop="gender"
-          min-width="80"
-          label="Giới tính"
-          align="center"
+            prop="gender"
+            min-width="80"
+            label="Giới tính"
+            align="center"
         ></el-table-column>
 
         <el-table-column label="SĐT-SMS" align="center" width="110">
           <template slot-scope="scope">
             <el-tooltip content="Đổi số điện thoại nhận SMS" placement="top">
               <el-button
-                class="click-in-row"
-                @click="changePhoneSMSDialogMethod(scope.row)"
-                type="text"
-                size="mini"
+                  class="click-in-row"
+                  @click="changePhoneSMSDialogMethod(scope.row)"
+                  type="text"
+                  size="mini"
               >
                 <span>{{ scope.row.phone }}</span>
               </el-button>
@@ -260,18 +267,18 @@
           <template slot-scope="scope">
             <span v-if="scope.row.username == 'Xử lý'">
               <el-button
-                class="handle-account"
-                @click="accountHanedleDialogMethod(scope.row)"
-                type="text"
-                size="mini"
+                  class="handle-account"
+                  @click="accountHanedleDialogMethod(scope.row)"
+                  type="text"
+                  size="mini"
               >
                 <span>&#8810;{{ scope.row.username }}&#8811;</span>
               </el-button>
             </span>
             <el-tooltip
-              v-else-if="scope.row.username == 'Chưa có'"
-              content="Thiếu tên hoặc số điện thoại người đại diện"
-              placement="top"
+                v-else-if="scope.row.username == 'Chưa có'"
+                content="Thiếu tên hoặc số điện thoại người đại diện"
+                placement="top"
             >
               <span>{{ scope.row.username }}</span>
             </el-tooltip>
@@ -290,9 +297,9 @@
               placement="top"
             > -->
             <el-checkbox
-              :disabled="!checkPermission(['kids_list_update'])"
-              @change="activeOneSMSMethod(scope.$index, scope.row)"
-              v-model="scope.row.smsReceive"
+                :disabled="!checkPermission(['kids_list_update'])"
+                @change="activeOneSMSMethod(scope.$index, scope.row)"
+                v-model="scope.row.smsReceive"
             ></el-checkbox>
             <!-- </el-tooltip> -->
           </template>
@@ -307,64 +314,67 @@
               placement="top"
             > -->
             <el-checkbox
-              :disabled="!checkPermission(['kids_list_update'])"
-              @change="activeOneMethod(scope.$index, scope.row)"
-              v-model="scope.row.activated"
+                :disabled="!checkPermission(['kids_list_update'])"
+                @change="activeOneMethod(scope.$index, scope.row)"
+                v-model="scope.row.activated"
             ></el-checkbox>
             <!-- </el-tooltip> -->
             <el-tooltip
-              v-if="scope.row.login == 'loginYes'"
-              effect="dark"
-              content="Đã đăng nhập"
-              placement="top"
+                v-if="scope.row.login == 'loginYes'"
+                effect="dark"
+                content="Đã đăng nhập"
+                placement="top"
             >
-              <i class="el-icon-circle-check" style="margin-left: 10px; color: #409eff" />
+              <i class="el-icon-circle-check" style="margin-left: 10px; color: #409eff"/>
             </el-tooltip>
             <el-tooltip
-              v-else-if="scope.row.login == 'loginNo'"
-              effect="dark"
-              content="Không đăng nhập"
-              placement="top"
+                v-else-if="scope.row.login == 'loginNo'"
+                effect="dark"
+                content="Không đăng nhập"
+                placement="top"
             >
-              <i class="el-icon-circle-check" style="margin-left: 10px; color: #e6a23c" />
+              <i class="el-icon-circle-check" style="margin-left: 10px; color: #e6a23c"/>
             </el-tooltip>
             <el-tooltip
-              v-else-if="scope.row.login == 'loginYet'"
-              effect="dark"
-              content="Chưa từng đăng nhập"
-              placement="top"
+                v-else-if="scope.row.login == 'loginYet'"
+                effect="dark"
+                content="Chưa từng đăng nhập"
+                placement="top"
             >
-              <i class="el-icon-circle-check" style="margin-left: 10px; color: red" />
+              <i class="el-icon-circle-check" style="margin-left: 10px; color: red"/>
             </el-tooltip>
           </template>
         </el-table-column>
         <el-table-column
-          v-if="checkPermission(['kids_list_update'])"
-          fixed="right"
-          label="Tác vụ"
-          :width="deleteStatusButton ? 240 : 170"
-          align="center"
+            v-if="checkPermission(['kids_list_update'])"
+            fixed="right"
+            label="Tác vụ"
+            :width="deleteStatusButton ? 240 : 170"
+            align="center"
         >
           <template slot-scope="scope">
             <el-button
-              size="mini"
-              type="success"
-              @click="handleEdit(scope.$index, scope.row)"
-              >Sửa</el-button
+                size="mini"
+                type="success"
+                @click="handleEdit(scope.$index, scope.row)"
+            >Sửa
+            </el-button
             >
             <el-button
-              :disabled="dataSearch.status == 'LEAVE_SCHOOL' ? true : false"
-              size="mini"
-              type="primary"
-              @click="updateKidsStatusMethod(scope.row)"
-              >Nghỉ học</el-button
+                :disabled="dataSearch.status == 'LEAVE_SCHOOL' ? true : false"
+                size="mini"
+                type="primary"
+                @click="updateKidsStatusMethod(scope.row)"
+            >Nghỉ học
+            </el-button
             >
             <el-button
-              v-if="deleteStatusButton"
-              size="mini"
-              type="danger"
-              @click="handleDelete(scope.$index, scope.row)"
-              >Xóa</el-button
+                v-if="deleteStatusButton"
+                size="mini"
+                type="danger"
+                @click="handleDelete(scope.$index, scope.row)"
+            >Xóa
+            </el-button
             >
           </template>
         </el-table-column>
@@ -372,85 +382,85 @@
     </div>
     <div class="paging-click row-data">
       <el-pagination
-        background
-        :current-page="pageNumber"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :page-sizes="$pageListDefaultUser"
-        :page-size="maxPageItem"
-        :layout="$pageLayoutDefault"
-        :total="pageTotal"
+          background
+          :current-page="pageNumber"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :page-sizes="$pageListDefaultUser"
+          :page-size="maxPageItem"
+          :layout="$pageLayoutDefault"
+          :total="pageTotal"
       ></el-pagination>
     </div>
     <CreateStudent
-      :dialogVisible="showCreateDialog"
-      @dialog-close="dialogCloseCreateMethod()"
-      ref="CreateStudent"
+        :dialogVisible="showCreateDialog"
+        @dialog-close="dialogCloseCreateMethod()"
+        ref="CreateStudent"
     />
     <UpdateStudent
-      :dialogVisible="showUpdateDialog"
-      @dialog-close="dialogCloseUpdateMethod()"
-      ref="UpdateStudent"
+        :dialogVisible="showUpdateDialog"
+        @dialog-close="dialogCloseUpdateMethod()"
+        ref="UpdateStudent"
     />
     <ChangeClassStudent
-      :dialogVisible="showChangeClassDialog"
-      @dialog-close="diglogCloseChangeClassMethod()"
-      ref="ChangeClassStudent"
+        :dialogVisible="showChangeClassDialog"
+        @dialog-close="diglogCloseChangeClassMethod()"
+        ref="ChangeClassStudent"
     />
     <CreateStudentNotify
-      v-bind:dataKidNotifyList="dataKidNotifyList"
-      :dialogVisibleEx="showCreateNotifyDialog"
-      @dialog-close="dialogCloseCreateNotifyMethod()"
-      ref="CreateStudentNotify"
+        v-bind:dataKidNotifyList="dataKidNotifyList"
+        :dialogVisibleEx="showCreateNotifyDialog"
+        @dialog-close="dialogCloseCreateNotifyMethod()"
+        ref="CreateStudentNotify"
     />
     <CreateStudentNotifySms
-      v-bind:dataKidNotifySmsList="dataKidNotifySmsList"
-      :dialogVisibleSms="showCreateNotifySmsDialog"
-      @dialog-close="dialogCloseCreateNotifySmsMethod()"
-      ref="CreateStudentNotifySms"
+        v-bind:dataKidNotifySmsList="dataKidNotifySmsList"
+        :dialogVisibleSms="showCreateNotifySmsDialog"
+        @dialog-close="dialogCloseCreateNotifySmsMethod()"
+        ref="CreateStudentNotifySms"
     />
     <AccountHandle
-      :dialogVisible="showAccountHandeDialog"
-      @dialog-close="dialogCloseAccountHandleMethod()"
-      ref="AccountHandle"
+        :dialogVisible="showAccountHandeDialog"
+        @dialog-close="dialogCloseAccountHandleMethod()"
+        ref="AccountHandle"
     />
     <ChangePhoneSMS
-      :dialogVisible="showChangePhoneSMSDialog"
-      @dialog-close="dialogCloseChangePhoneSMSMethod()"
-      ref="ChangePhoneSMS"
+        :dialogVisible="showChangePhoneSMSDialog"
+        @dialog-close="dialogCloseChangePhoneSMSMethod()"
+        ref="ChangePhoneSMS"
     />
     <CreateStudentExcel
-      :gradeList="gradeList"
-      :dialogVisibleExStudent="showCreateStudentExcelDialog"
-      @dialog-close="dialogCloseCreateStudentExcelMethod()"
-      ref="CreateStudentExcel"
+        :gradeList="gradeOfSchoolList"
+        :dialogVisibleExStudent="showCreateStudentExcelDialog"
+        @dialog-close="dialogCloseCreateStudentExcelMethod()"
+        ref="CreateStudentExcel"
     />
     <KidsUpdateStatusDialog
-      :dialogVisible="showUpdateKidsStatus"
-      @dialog-close="closeUpdateKidsStatus()"
-      ref="KidsUpdateStatusDialog"
+        :dialogVisible="showUpdateKidsStatus"
+        @dialog-close="closeUpdateKidsStatus()"
+        ref="KidsUpdateStatusDialog"
     />
     <CreateSmsDialog
-      :dialogVisible="showCreateSms"
-      @dialog-close="closeCreateSmsMethod()"
-      ref="CreateSmsDialog"
+        :dialogVisible="showCreateSms"
+        @dialog-close="closeCreateSmsMethod()"
+        ref="CreateSmsDialog"
     />
     <CreateGroupOutDialog
-      :listKids="multipleSelection"
-      :dialogVisible="showCreateGroupOutDialog"
-      @dialog-close="closeCreateGroupOutDialog()"
-      ref="CreateGroupOutDialog"
+        :listKids="multipleSelection"
+        :dialogVisible="showCreateGroupOutDialog"
+        @dialog-close="closeCreateGroupOutDialog()"
+        ref="CreateGroupOutDialog"
     />
     <KidsSearchExtendDialog
-      :listKids="multipleSelection"
-      :dialogVisible="showSearchExtend"
-      @dialog-close="closeSearchExtend"
-      ref="KidsSearchExtendDialog"
+        :listKids="multipleSelection"
+        :dialogVisible="showSearchExtend"
+        @dialog-close="closeSearchExtend"
+        ref="KidsSearchExtendDialog"
     />
     <ExportMedicineDialog
-      :dialogVisible="showExportMedicineDialog"
-      @dialog-close="closeExportMedicineDialog"
-      ref="ExportMedicineDialog"
+        :dialogVisible="showExportMedicineDialog"
+        @dialog-close="closeExportMedicineDialog"
+        ref="ExportMedicineDialog"
     />
   </div>
 </template>
@@ -458,11 +468,8 @@
 <script>
 import checkPermission from "@/utils/permission.js";
 import StudentService from "@/services/StudentService";
-import GradeService from "@/services/GradeService";
-import MaClassService from "@/services/MaClassService";
 import TeacherService from "@/services/TeacherService";
 import CommonOnekidsService from "@/services/CommonOnekidsService";
-// import http from "../../http-download";
 import CreateStudent from "./CreateStudent.vue";
 import UpdateStudent from "./UpdateStudent.vue";
 import CreateGroupOutDialog from "./CreateGroupOutDialog.vue";
@@ -477,6 +484,8 @@ import CreateSmsDialog from "../common/CreateSmsDialog.vue";
 import KidsSearchExtendDialog from "./KidsSearchExtendDialog.vue";
 import ExportMedicineDialog from "./ExportMedicineDialog.vue";
 import moment from "moment";
+import {mapActions, mapGetters} from "vuex";
+
 export default {
   components: {
     CreateStudent,
@@ -535,19 +544,19 @@ export default {
         dateList: [],
       },
       classList: [],
-      gradeList: [],
+      // gradeList: [],
       classOfGradeList: [],
       classOfGradeFilterList: [],
       loginStatusList: [
-        { key: "loginYet", value: "Chưa từng đăng nhập" },
-        { key: "loginNo", value: "Không đăng nhập" },
-        { key: "loginYes", value: "Đã đăng nhập" },
+        {key: "loginYet", value: "Chưa từng đăng nhập"},
+        {key: "loginNo", value: "Không đăng nhập"},
+        {key: "loginYes", value: "Đã đăng nhập"},
       ],
       kidStatusList: [
-        { key: "STUDYING", value: "Đang học" },
-        { key: "STUDY_WAIT", value: "Chờ học" },
-        { key: "RESERVE", value: "Bảo lưu" },
-        { key: "LEAVE_SCHOOL", value: "Nghỉ học" },
+        {key: "STUDYING", value: "Đang học"},
+        {key: "STUDY_WAIT", value: "Chờ học"},
+        {key: "RESERVE", value: "Bảo lưu"},
+        {key: "LEAVE_SCHOOL", value: "Nghỉ học"},
       ],
       searchCodeOrname: "",
       dataListNotify: [],
@@ -574,8 +583,16 @@ export default {
     getAppTypeUserLogin() {
       return this.$store.state.auth.user.appType;
     },
+    ...mapGetters('gradeStore', ['gradeOfSchoolList']),
+    ...mapGetters('classStore', ['listClassInGrade']),
+
+  },
+  mounted() {
+    this.classList = this.listClassInGrade;
   },
   methods: {
+    ...mapActions('gradeStore', ['fetchDataGradeOfSchoolList']),
+    ...mapActions('classStore', ['fetchDataListClassInGrade']),
     checkPermission,
     tableHeaderColor() {
       return "background-color: #78a5e7;color: #fff;font-weight: bold";
@@ -602,7 +619,7 @@ export default {
       this.$refs.CreateStudentNotifySms.getNumber();
     },
     //highlight cho row theo điều kiện
-    tableRowStyle({ row }) {
+    tableRowStyle({row}) {
       if (row.username == "Chưa có") {
         return "color: #409EFF";
       } else if (row.username == "Xử lý") {
@@ -649,8 +666,8 @@ export default {
     searchExtendDialog() {
       this.showSearchExtend = true;
       this.$refs.KidsSearchExtendDialog.getSearchExtendInitial(
-        this.dataSearch.type,
-        this.dataSearch.dateList
+          this.dataSearch.type,
+          this.dataSearch.dateList
       );
     },
 
@@ -784,29 +801,94 @@ export default {
       let selectRowList = this.multipleSelection.map((x) => x.id);
       this.getStyleExcel();
       StudentService.exportExcelMessageParent(selectRowList)
-        .then((resp) => {
-          import("@/services/ExportExcel")
+          .then((resp) => {
+            import("@/services/ExportExcel")
+                .then((excel) => {
+                  let dataList = resp.data.data;
+                  let fileName = "DANH_SACH_LOI_NHAN";
+                  const tHeader = [
+                    "STT",
+                    "Thời gian gửi",
+                    "Nội dung",
+                    "Số file",
+                    "Trạng thái",
+                    "Giáo viên phản hồi",
+                    "Nhà trường phản hồi",
+                  ];
+                  const filterVal = ["pro1", "pro2", "pro3", "pro4", "pro5", "pro6", "pro7"];
+                  let columnList = [
+                    {col: 5},
+                    {col: 17},
+                    {col: 55},
+                    {col: 6},
+                    {col: 14},
+                    {col: 25},
+                    {col: 25},
+                  ];
+                  excel.export_json_to_excel({
+                    header: tHeader,
+                    data: dataList,
+                    title: filterVal,
+                    filename: fileName,
+                    columnsWidth: columnList,
+                    styleCols1: this.styleCols1,
+                    styleCols2: this.styleCols2,
+                  });
+                  this.downloadLoading = false;
+                })
+                .finally(() => {
+                  this.styleCols1 = [];
+                  this.styleCols2 = [];
+                });
+          })
+          .catch((err) => {
+            this.$message({
+              message: err.response.data.message,
+              type: "error",
+            });
+          });
+    },
+    exportMedicineDialogMethod() {
+      this.showExportMedicineDialog = true;
+    },
+    //Xuất file excel Dặn thuốc
+    exportExcelMedicineMethod() {
+      this.getStyleExcel();
+      let selectRowList = this.multipleSelection.map((x) => x.id);
+      StudentService.exportExcelMedicine(selectRowList).then((resp) => {
+        import("@/services/ExportExcel")
             .then((excel) => {
               let dataList = resp.data.data;
-              let fileName = "DANH_SACH_LOI_NHAN";
+              let fileName = "DANH_SACH_DAN_THUOC";
               const tHeader = [
                 "STT",
                 "Thời gian gửi",
                 "Nội dung",
+                "Ngày uống",
                 "Số file",
                 "Trạng thái",
                 "Giáo viên phản hồi",
                 "Nhà trường phản hồi",
               ];
-              const filterVal = ["pro1", "pro2", "pro3", "pro4", "pro5", "pro6", "pro7"];
+              const filterVal = [
+                "pro1",
+                "pro2",
+                "pro3",
+                "pro4",
+                "pro5",
+                "pro6",
+                "pro7",
+                "pro8",
+              ];
               let columnList = [
-                { col: 5 },
-                { col: 17 },
-                { col: 55 },
-                { col: 6 },
-                { col: 14 },
-                { col: 25 },
-                { col: 25 },
+                {col: 5},
+                {col: 17},
+                {col: 45},
+                {col: 22},
+                {col: 6},
+                {col: 14},
+                {col: 23},
+                {col: 23},
               ];
               excel.export_json_to_excel({
                 header: tHeader,
@@ -822,75 +904,10 @@ export default {
             .finally(() => {
               this.styleCols1 = [];
               this.styleCols2 = [];
+              setTimeout(() => {
+                this.closeExportMedicineDialog();
+              }, 1000);
             });
-        })
-        .catch((err) => {
-          this.$message({
-            message: err.response.data.message,
-            type: "error",
-          });
-        });
-    },
-    exportMedicineDialogMethod() {
-      this.showExportMedicineDialog = true;
-    },
-    //Xuất file excel Dặn thuốc
-    exportExcelMedicineMethod() {
-      this.getStyleExcel();
-      let selectRowList = this.multipleSelection.map((x) => x.id);
-      StudentService.exportExcelMedicine(selectRowList).then((resp) => {
-        import("@/services/ExportExcel")
-          .then((excel) => {
-            let dataList = resp.data.data;
-            let fileName = "DANH_SACH_DAN_THUOC";
-            const tHeader = [
-              "STT",
-              "Thời gian gửi",
-              "Nội dung",
-              "Ngày uống",
-              "Số file",
-              "Trạng thái",
-              "Giáo viên phản hồi",
-              "Nhà trường phản hồi",
-            ];
-            const filterVal = [
-              "pro1",
-              "pro2",
-              "pro3",
-              "pro4",
-              "pro5",
-              "pro6",
-              "pro7",
-              "pro8",
-            ];
-            let columnList = [
-              { col: 5 },
-              { col: 17 },
-              { col: 45 },
-              { col: 22 },
-              { col: 6 },
-              { col: 14 },
-              { col: 23 },
-              { col: 23 },
-            ];
-            excel.export_json_to_excel({
-              header: tHeader,
-              data: dataList,
-              title: filterVal,
-              filename: fileName,
-              columnsWidth: columnList,
-              styleCols1: this.styleCols1,
-              styleCols2: this.styleCols2,
-            });
-            this.downloadLoading = false;
-          })
-          .finally(() => {
-            this.styleCols1 = [];
-            this.styleCols2 = [];
-            setTimeout(() => {
-              this.closeExportMedicineDialog();
-            }, 1000);
-          });
       });
     },
     //Xuất file excel Dặn  theo ngày
@@ -909,65 +926,65 @@ export default {
       let className = this.classList.filter((x) => x.id == idClass)[0].className;
       let dateFormat = this.moment(dateSelect).format("DD.MM.YYYY");
       StudentService.exportExcelMedicineDate(
-        selectRowList,
-        dateSelect,
-        this.dataSearch.idClass
+          selectRowList,
+          dateSelect,
+          this.dataSearch.idClass
       ).then((resp) => {
         import("@/services/ExportExcel")
-          .then((excel) => {
-            let dataList = resp.data.data;
-            let fileName = "DANTHUOC-" + className + "-" + dateFormat;
-            const tHeader = [
-              "STT",
-              "Họ và tên",
-              "Thời gian gửi",
-              "Nội dung",
-              "Ngày uống",
-              "Số file",
-              "Trạng thái",
-              "Giáo viên phản hồi",
-              "Nhà trường phản hồi",
-            ];
-            const filterVal = [
-              "pro1",
-              "pro2",
-              "pro3",
-              "pro4",
-              "pro5",
-              "pro6",
-              "pro7",
-              "pro8",
-              "pro9",
-            ];
-            let columnList = [
-              { col: 5 },
-              { col: 20 },
-              { col: 17 },
-              { col: 45 },
-              { col: 22 },
-              { col: 6 },
-              { col: 14 },
-              { col: 23 },
-              { col: 23 },
-            ];
-            excel.export_json_to_excel({
-              header: tHeader,
-              data: dataList,
-              title: filterVal,
-              filename: fileName,
-              columnsWidth: columnList,
-              styleCols1: this.styleCols1,
-              styleCols2: this.styleCols2,
+            .then((excel) => {
+              let dataList = resp.data.data;
+              let fileName = "DANTHUOC-" + className + "-" + dateFormat;
+              const tHeader = [
+                "STT",
+                "Họ và tên",
+                "Thời gian gửi",
+                "Nội dung",
+                "Ngày uống",
+                "Số file",
+                "Trạng thái",
+                "Giáo viên phản hồi",
+                "Nhà trường phản hồi",
+              ];
+              const filterVal = [
+                "pro1",
+                "pro2",
+                "pro3",
+                "pro4",
+                "pro5",
+                "pro6",
+                "pro7",
+                "pro8",
+                "pro9",
+              ];
+              let columnList = [
+                {col: 5},
+                {col: 20},
+                {col: 17},
+                {col: 45},
+                {col: 22},
+                {col: 6},
+                {col: 14},
+                {col: 23},
+                {col: 23},
+              ];
+              excel.export_json_to_excel({
+                header: tHeader,
+                data: dataList,
+                title: filterVal,
+                filename: fileName,
+                columnsWidth: columnList,
+                styleCols1: this.styleCols1,
+                styleCols2: this.styleCols2,
+              });
+              this.downloadLoading = false;
+            })
+            .finally(() => {
+              this.styleCols1 = [];
+              this.styleCols2 = [];
+              setTimeout(() => {
+                this.closeExportMedicineDialog();
+              }, 1000);
             });
-            this.downloadLoading = false;
-          })
-          .finally(() => {
-            this.styleCols1 = [];
-            this.styleCols2 = [];
-            setTimeout(() => {
-              this.closeExportMedicineDialog();
-            }, 1000);
-          });
       });
     },
     //Xuất file excel Xin nghỉ
@@ -976,54 +993,54 @@ export default {
       let selectRowList = this.multipleSelection.map((x) => x.id);
       StudentService.exportExcelAbsentLetter(selectRowList).then((resp) => {
         import("@/services/ExportExcel")
-          .then((excel) => {
-            let dataList = resp.data.data;
-            let fileName = "DANH_SACH_XIN_NGHI";
-            const tHeader = [
-              "STT",
-              "Thời gian gửi",
-              "Nội dung",
-              "Thời gian nghỉ",
-              "Số file",
-              "Trạng thái",
-              "Giáo viên phản hồi",
-              "Nhà trường phản hồi",
-            ];
-            const filterVal = [
-              "pro1",
-              "pro2",
-              "pro3",
-              "pro4",
-              "pro5",
-              "pro6",
-              "pro7",
-              "pro8",
-            ];
-            let columnList = [
-              { col: 5 },
-              { col: 17 },
-              { col: 45 },
-              { col: 22 },
-              { col: 6 },
-              { col: 14 },
-              { col: 23 },
-              { col: 23 },
-            ];
-            excel.export_json_to_excel({
-              header: tHeader,
-              data: dataList,
-              title: filterVal,
-              filename: fileName,
-              columnsWidth: columnList,
-              styleCols1: this.styleCols1,
-              styleCols2: this.styleCols2,
+            .then((excel) => {
+              let dataList = resp.data.data;
+              let fileName = "DANH_SACH_XIN_NGHI";
+              const tHeader = [
+                "STT",
+                "Thời gian gửi",
+                "Nội dung",
+                "Thời gian nghỉ",
+                "Số file",
+                "Trạng thái",
+                "Giáo viên phản hồi",
+                "Nhà trường phản hồi",
+              ];
+              const filterVal = [
+                "pro1",
+                "pro2",
+                "pro3",
+                "pro4",
+                "pro5",
+                "pro6",
+                "pro7",
+                "pro8",
+              ];
+              let columnList = [
+                {col: 5},
+                {col: 17},
+                {col: 45},
+                {col: 22},
+                {col: 6},
+                {col: 14},
+                {col: 23},
+                {col: 23},
+              ];
+              excel.export_json_to_excel({
+                header: tHeader,
+                data: dataList,
+                title: filterVal,
+                filename: fileName,
+                columnsWidth: columnList,
+                styleCols1: this.styleCols1,
+                styleCols2: this.styleCols2,
+              });
+              this.downloadLoading = false;
+            })
+            .finally(() => {
+              this.styleCols1 = [];
+              this.styleCols2 = [];
             });
-            this.downloadLoading = false;
-          })
-          .finally(() => {
-            this.styleCols1 = [];
-            this.styleCols2 = [];
-          });
       });
     },
 
@@ -1033,44 +1050,44 @@ export default {
       let selectRowList = this.multipleSelection.map((x) => x.id);
       StudentService.exportExcelSMS(selectRowList).then((resp) => {
         import("@/services/ExportExcel")
-          .then((excel) => {
-            let dataList = resp.data.data;
-            let fileName = "DANH_SACH_HOC_SINH_GUI_SMS";
-            const tHeader = ["STT", "Mã HS", "Tên học sinh", "Lớp", "Nội dung"];
-            const filterVal = ["pro1", "pro2", "pro3", "pro4", "pro5"];
-            let columnList = [
-              { col: 5 },
-              { col: 15 },
-              { col: 25 },
-              { col: 15 },
-              { col: 50 },
-            ];
-            excel.export_json_to_excel({
-              header: tHeader,
-              data: dataList,
-              title: filterVal,
-              filename: fileName,
-              columnsWidth: columnList,
-              styleCols1: this.styleCols1,
-              styleCols2: this.styleCols2,
+            .then((excel) => {
+              let dataList = resp.data.data;
+              let fileName = "DANH_SACH_HOC_SINH_GUI_SMS";
+              const tHeader = ["STT", "Mã HS", "Tên học sinh", "Lớp", "Nội dung"];
+              const filterVal = ["pro1", "pro2", "pro3", "pro4", "pro5"];
+              let columnList = [
+                {col: 5},
+                {col: 15},
+                {col: 25},
+                {col: 15},
+                {col: 50},
+              ];
+              excel.export_json_to_excel({
+                header: tHeader,
+                data: dataList,
+                title: filterVal,
+                filename: fileName,
+                columnsWidth: columnList,
+                styleCols1: this.styleCols1,
+                styleCols2: this.styleCols2,
+              });
+            })
+            .finally(() => {
+              this.styleCols1 = [];
+              this.styleCols2 = [];
             });
-          })
-          .finally(() => {
-            this.styleCols1 = [];
-            this.styleCols2 = [];
-          });
       });
     },
     //Css Excel dặn thuốc, xin nghỉ,...
     getStyleExcel() {
       let style = {
-        font: { bold: true },
-        fill: { fgColor: { rgb: "67C23A" } },
+        font: {bold: true},
+        fill: {fgColor: {rgb: "67C23A"}},
         border: {
-          top: { style: "thin" },
-          bottom: { style: "thin" },
-          left: { style: "thin" },
-          right: { style: "thin" },
+          top: {style: "thin"},
+          bottom: {style: "thin"},
+          left: {style: "thin"},
+          right: {style: "thin"},
         },
       };
       let styleCol1 = {
@@ -1079,20 +1096,20 @@ export default {
       };
       let styleCol2 = {
         name: ["A1", "A2"],
-        style: { font: { bold: true, color: { rgb: "ff0000" } } },
+        style: {font: {bold: true, color: {rgb: "ff0000"}}},
       };
       this.styleCols1.push(styleCol1);
       this.styleCols1.push(styleCol2);
     },
     getStyleExcelDate() {
       let style = {
-        font: { bold: true },
-        fill: { fgColor: { rgb: "67C23A" } },
+        font: {bold: true},
+        fill: {fgColor: {rgb: "67C23A"}},
         border: {
-          top: { style: "thin" },
-          bottom: { style: "thin" },
-          left: { style: "thin" },
-          right: { style: "thin" },
+          top: {style: "thin"},
+          bottom: {style: "thin"},
+          left: {style: "thin"},
+          right: {style: "thin"},
         },
       };
       let styleCol1 = {
@@ -1101,7 +1118,7 @@ export default {
       };
       let styleCol2 = {
         name: ["A1", "A2", "A3"],
-        style: { font: { bold: true, color: { rgb: "ff0000" } } },
+        style: {font: {bold: true, color: {rgb: "ff0000"}}},
       };
       this.styleCols1.push(styleCol1);
       this.styleCols1.push(styleCol2);
@@ -1109,13 +1126,13 @@ export default {
     //Css Excel sms
     getStyleExcelSms() {
       let style = {
-        font: { bold: true },
-        fill: { fgColor: { rgb: "67C23A" } },
+        font: {bold: true},
+        fill: {fgColor: {rgb: "67C23A"}},
         border: {
-          top: { style: "thin" },
-          bottom: { style: "thin" },
-          left: { style: "thin" },
-          right: { style: "thin" },
+          top: {style: "thin"},
+          bottom: {style: "thin"},
+          left: {style: "thin"},
+          right: {style: "thin"},
         },
       };
       let styleCol2 = {
@@ -1185,123 +1202,123 @@ export default {
         let myDate = moment(new Date()).format("DD-MM-YYYY hh:mm:ss");
         let selectRowList = this.multipleSelection.map((x) => x.id);
         StudentService.exportExcelStudentNew(selectRowList)
-          .then((resp) => {
-            import("@/services/ExportExcel")
-              .then((excel) => {
-                let dataList = resp.data.data;
-                let fileName = `QUAN_LY_HOC_SINH_${myDate}`;
-                const tHeader = [
-                  "STT",
-                  "Tình trạng",
-                  "Khối học",
-                  "Lớp học",
-                  "Tên nhóm",
-                  "Họ và tên",
-                  "Ngày sinh",
-                  "Giới tính",
-                  "Biệt danh",
-                  "Địa chỉ hiện tại",
-                  "Địa chỉ thường trú",
-                  "Dân tộc",
-                  "Số định danh",
-                  "Người đại diện",
-                  "Ngày nhập học",
-                  "Ngày bảo lưu",
-                  "Ngày nghỉ",
-                  "Họ tên mẹ",
-                  "Ngày sinh",
-                  "Số điện thoại",
-                  "Email",
-                  "Nghề nghiệp",
-                  "Họ tên bố",
-                  "Ngày sinh",
-                  "Số điện thoại",
-                  "Email",
-                  "Nghề nghiệp",
-                  "Ghi chú",
-                ];
-                const filterVal = [
-                  "pro1",
-                  "pro2",
-                  "pro3",
-                  "pro4",
-                  "pro5",
-                  "pro6",
-                  "pro7",
-                  "pro8",
-                  "pro9",
-                  "pro10",
-                  "pro11",
-                  "pro12",
-                  "pro13",
-                  "pro14",
-                  "pro15",
-                  "pro16",
-                  "pro17",
-                  "pro18",
-                  "pro19",
-                  "pro20",
-                  "pro21",
-                  "pro22",
-                  "pro23",
-                  "pro24",
-                  "pro25",
-                  "pro26",
-                  "pro27",
-                  "pro28",
-                ];
-                let columnList = [
-                  { col: 5 },
-                  { col: 15 },
-                  { col: 15 },
-                  { col: 15 },
-                  { col: 15 },
-                  { col: 25 },
-                  { col: 15 },
-                  { col: 10 },
-                  { col: 20 },
-                  { col: 25 },
-                  { col: 25 },
-                  { col: 10 },
-                  { col: 15 },
-                  { col: 15 },
-                  { col: 15 },
-                  { col: 15 },
-                  { col: 15 },
-                  { col: 25 },
-                  { col: 15 },
-                  { col: 15 },
-                  { col: 25 },
-                  { col: 15 },
-                  { col: 25 },
-                  { col: 15 },
-                  { col: 15 },
-                  { col: 25 },
-                  { col: 15 },
-                  { col: 30 },
-                ];
-                excel.export_json_to_excel({
-                  header: tHeader,
-                  data: dataList,
-                  title: filterVal,
-                  filename: fileName,
-                  columnsWidth: columnList,
-                  styleCols1: this.styleCols1,
-                  styleCols2: this.styleCols2,
-                });
-              })
-              .finally(() => {
-                this.styleCols1 = [];
-                this.styleCols2 = [];
+            .then((resp) => {
+              import("@/services/ExportExcel")
+                  .then((excel) => {
+                    let dataList = resp.data.data;
+                    let fileName = `QUAN_LY_HOC_SINH_${myDate}`;
+                    const tHeader = [
+                      "STT",
+                      "Tình trạng",
+                      "Khối học",
+                      "Lớp học",
+                      "Tên nhóm",
+                      "Họ và tên",
+                      "Ngày sinh",
+                      "Giới tính",
+                      "Biệt danh",
+                      "Địa chỉ hiện tại",
+                      "Địa chỉ thường trú",
+                      "Dân tộc",
+                      "Số định danh",
+                      "Người đại diện",
+                      "Ngày nhập học",
+                      "Ngày bảo lưu",
+                      "Ngày nghỉ",
+                      "Họ tên mẹ",
+                      "Ngày sinh",
+                      "Số điện thoại",
+                      "Email",
+                      "Nghề nghiệp",
+                      "Họ tên bố",
+                      "Ngày sinh",
+                      "Số điện thoại",
+                      "Email",
+                      "Nghề nghiệp",
+                      "Ghi chú",
+                    ];
+                    const filterVal = [
+                      "pro1",
+                      "pro2",
+                      "pro3",
+                      "pro4",
+                      "pro5",
+                      "pro6",
+                      "pro7",
+                      "pro8",
+                      "pro9",
+                      "pro10",
+                      "pro11",
+                      "pro12",
+                      "pro13",
+                      "pro14",
+                      "pro15",
+                      "pro16",
+                      "pro17",
+                      "pro18",
+                      "pro19",
+                      "pro20",
+                      "pro21",
+                      "pro22",
+                      "pro23",
+                      "pro24",
+                      "pro25",
+                      "pro26",
+                      "pro27",
+                      "pro28",
+                    ];
+                    let columnList = [
+                      {col: 5},
+                      {col: 15},
+                      {col: 15},
+                      {col: 15},
+                      {col: 15},
+                      {col: 25},
+                      {col: 15},
+                      {col: 10},
+                      {col: 20},
+                      {col: 25},
+                      {col: 25},
+                      {col: 10},
+                      {col: 15},
+                      {col: 15},
+                      {col: 15},
+                      {col: 15},
+                      {col: 15},
+                      {col: 25},
+                      {col: 15},
+                      {col: 15},
+                      {col: 25},
+                      {col: 15},
+                      {col: 25},
+                      {col: 15},
+                      {col: 15},
+                      {col: 25},
+                      {col: 15},
+                      {col: 30},
+                    ];
+                    excel.export_json_to_excel({
+                      header: tHeader,
+                      data: dataList,
+                      title: filterVal,
+                      filename: fileName,
+                      columnsWidth: columnList,
+                      styleCols1: this.styleCols1,
+                      styleCols2: this.styleCols2,
+                    });
+                  })
+                  .finally(() => {
+                    this.styleCols1 = [];
+                    this.styleCols2 = [];
+                  });
+            })
+            .catch((err) => {
+              console.log(err);
+              this.$message({
+                message: "Thất bại",
+                type: "error",
               });
-          })
-          .catch((err) => {
-            console.log(err);
-            this.$message({
-              message: "Thất bại",
-              type: "error",
             });
-          });
       });
     },
     //Style css Excel Student
@@ -1312,7 +1329,7 @@ export default {
       let styleCol1 = {
         name: "A5:P5",
         style: {
-          fill: { fgColor: { rgb: "ffff00" } },
+          fill: {fgColor: {rgb: "ffff00"}},
           font,
           alignment,
           border,
@@ -1321,7 +1338,7 @@ export default {
       let styleCol2 = {
         name: "Q5:U5",
         style: {
-          fill: { fgColor: { rgb: "ffb2bd" } },
+          fill: {fgColor: {rgb: "ffb2bd"}},
           font,
           alignment,
           border,
@@ -1330,7 +1347,7 @@ export default {
       let styleCol3 = {
         name: "V5:AB5",
         style: {
-          fill: { fgColor: { rgb: "78f388" } },
+          fill: {fgColor: {rgb: "78f388"}},
           font,
           alignment,
           border,
@@ -1340,13 +1357,13 @@ export default {
       let styleCol4 = {
         name: ["A1"],
         style: {
-          font: { color: { rgb: "ff0000" }, bold: true, sz: "18" },
+          font: {color: {rgb: "ff0000"}, bold: true, sz: "18"},
         },
       };
       let styleCol5 = {
         name: ["A2", "A3", "A4"],
         style: {
-          font: { bold: true, sz: "11" },
+          font: {bold: true, sz: "11"},
         },
       };
       this.styleCols2.push(styleCol1);
@@ -1364,38 +1381,38 @@ export default {
     // tác vụ
     actionActiveMethod(dataAction) {
       StudentService.updateManyActive(dataAction)
-        .then(() => {
-          this.$message({
-            message: "Kích hoạt tài khoản thành công",
-            type: "success",
+          .then(() => {
+            this.$message({
+              message: "Kích hoạt tài khoản thành công",
+              type: "success",
+            });
+            this.searchByProperties();
+          })
+          .catch((err) => {
+            console.log(err);
+            this.$message({
+              message: "Kích hoạt tài khoản thất bại",
+              type: "error",
+            });
           });
-          this.searchByProperties();
-        })
-        .catch((err) => {
-          console.log(err);
-          this.$message({
-            message: "Kích hoạt tài khoản thất bại",
-            type: "error",
-          });
-        });
     },
 
     actionCancelctiveMethod(dataAction) {
       StudentService.updateManyCancelActive(dataAction)
-        .then(() => {
-          this.$message({
-            message: "Hủy kích hoạt tài khoản thành công",
-            type: "success",
+          .then(() => {
+            this.$message({
+              message: "Hủy kích hoạt tài khoản thành công",
+              type: "success",
+            });
+            this.searchByProperties();
+          })
+          .catch((err) => {
+            console.log(err);
+            this.$message({
+              message: "Hủy kích hoạt tài khoản thất bại",
+              type: "error",
+            });
           });
-          this.searchByProperties();
-        })
-        .catch((err) => {
-          console.log(err);
-          this.$message({
-            message: "Hủy kích hoạt tài khoản thất bại",
-            type: "error",
-          });
-        });
     },
 
     /**
@@ -1403,20 +1420,20 @@ export default {
      */
     actionActiveSMSMethod(dataAction) {
       StudentService.updateManyActiveSMS(dataAction)
-        .then(() => {
-          this.$message({
-            message: "Đăng ký nhận SMS thành công",
-            type: "success",
+          .then(() => {
+            this.$message({
+              message: "Đăng ký nhận SMS thành công",
+              type: "success",
+            });
+            this.searchByProperties();
+          })
+          .catch((err) => {
+            console.log(err);
+            this.$message({
+              message: "Đăng ký nhận SMS thất bại",
+              type: "error",
+            });
           });
-          this.searchByProperties();
-        })
-        .catch((err) => {
-          console.log(err);
-          this.$message({
-            message: "Đăng ký nhận SMS thất bại",
-            type: "error",
-          });
-        });
     },
 
     /**
@@ -1424,20 +1441,20 @@ export default {
      */
     actionCancelctiveSMSMethod(dataAction) {
       StudentService.updateManyCancelActiveSMS(dataAction)
-        .then(() => {
-          this.$message({
-            message: "Hủy Đăng ký nhận SMS thành công",
-            type: "success",
+          .then(() => {
+            this.$message({
+              message: "Hủy Đăng ký nhận SMS thành công",
+              type: "success",
+            });
+            this.searchByProperties();
+          })
+          .catch((err) => {
+            console.log(err);
+            this.$message({
+              message: "Hủy Đăng ký nhận SMS thất bại",
+              type: "error",
+            });
           });
-          this.searchByProperties();
-        })
-        .catch((err) => {
-          console.log(err);
-          this.$message({
-            message: "Hủy Đăng ký nhận SMS thất bại",
-            type: "error",
-          });
-        });
     },
     actionChangeClassMethod(data) {
       this.showChangeClassDialog = true;
@@ -1448,29 +1465,29 @@ export default {
      */
     deleteManyStudent(data) {
       this.$confirm(
-        "Thao tác này sẽ xóa toàn bộ thông tin của học sinh bao gồm cả thông tin tài chính. Bạn có chắc chắn muốn xóa các học sinh đã chọn?",
-        "Thông báo!",
-        {
-          distinguishCancelAndClose: true,
-          confirmButtonText: "Có",
-          cancelButtonText: "Không",
-        }
+          "Thao tác này sẽ xóa toàn bộ thông tin của học sinh bao gồm cả thông tin tài chính. Bạn có chắc chắn muốn xóa các học sinh đã chọn?",
+          "Thông báo!",
+          {
+            distinguishCancelAndClose: true,
+            confirmButtonText: "Có",
+            cancelButtonText: "Không",
+          }
       ).then(() => {
         StudentService.deleteManyKids(data)
-          .then((resp) => {
-            this.$message({
-              message: resp.data.message,
-              type: "success",
+            .then((resp) => {
+              this.$message({
+                message: resp.data.message,
+                type: "success",
+              });
+              this.searchByProperties();
+            })
+            .catch((err) => {
+              console.log(err);
+              this.$message({
+                message: err.response.data.message,
+                type: "error",
+              });
             });
-            this.searchByProperties();
-          })
-          .catch((err) => {
-            console.log(err);
-            this.$message({
-              message: err.response.data.message,
-              type: "error",
-            });
-          });
       });
     },
 
@@ -1479,33 +1496,33 @@ export default {
       this.dataOneActive.id = row.id;
       let handleUpdate = (this.dataOneActive.checkOneActive = row.activated);
       StudentService.updateOneActive(this.dataOneActive)
-        .then(() => {
-          if (handleUpdate) {
-            this.$message({
-              message: "Kích hoạt tài khoản thành công",
-              type: "success",
-            });
-          } else {
-            this.$message({
-              message: "Hủy kích hoạt tài khoản thành công",
-              type: "success",
-            });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          if (handleUpdate) {
-            this.$message({
-              message: "Kích hoạt tài khoản thất bại",
-              type: "error",
-            });
-          } else {
-            this.$message({
-              message: "Hủy kích tài khoản hoạt thất bại",
-              type: "error",
-            });
-          }
-        });
+          .then(() => {
+            if (handleUpdate) {
+              this.$message({
+                message: "Kích hoạt tài khoản thành công",
+                type: "success",
+              });
+            } else {
+              this.$message({
+                message: "Hủy kích hoạt tài khoản thành công",
+                type: "success",
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            if (handleUpdate) {
+              this.$message({
+                message: "Kích hoạt tài khoản thất bại",
+                type: "error",
+              });
+            } else {
+              this.$message({
+                message: "Hủy kích tài khoản hoạt thất bại",
+                type: "error",
+              });
+            }
+          });
     },
 
     //kích hoạt tính năng nhận sms cho một học sinh
@@ -1513,33 +1530,33 @@ export default {
       this.dataOneActiveSMS.id = row.id;
       let handleUpdate = (this.dataOneActiveSMS.checkOneActiveSMS = row.smsReceive);
       StudentService.updateOneActiveSMS(this.dataOneActiveSMS)
-        .then(() => {
-          if (handleUpdate) {
-            this.$message({
-              message: "Đăng ký nhận SMS thành công",
-              type: "success",
-            });
-          } else {
-            this.$message({
-              message: "Hủy đăng ký nhận SMS thành công",
-              type: "success",
-            });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          if (handleUpdate) {
-            this.$message({
-              message: "Đăng ký nhận SMS thất bại",
-              type: "error",
-            });
-          } else {
-            this.$message({
-              message: "Hủy Đăng ký nhận SMS thất bại",
-              type: "error",
-            });
-          }
-        });
+          .then(() => {
+            if (handleUpdate) {
+              this.$message({
+                message: "Đăng ký nhận SMS thành công",
+                type: "success",
+              });
+            } else {
+              this.$message({
+                message: "Hủy đăng ký nhận SMS thành công",
+                type: "success",
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            if (handleUpdate) {
+              this.$message({
+                message: "Đăng ký nhận SMS thất bại",
+                type: "error",
+              });
+            } else {
+              this.$message({
+                message: "Hủy Đăng ký nhận SMS thất bại",
+                type: "error",
+              });
+            }
+          });
     },
 
     // gửi tài khoản đăng nhập cho phụ huynh học sinh
@@ -1560,40 +1577,40 @@ export default {
         return;
       }
       this.$confirm(
-        "Bạn có chắc chắn muốn gửi tài khoản cho học sinh đã chọn?",
-        "Thông báo!",
-        {
-          distinguishCancelAndClose: true,
-          confirmButtonText: "Có",
-          closeOnClickModal: false,
-          cancelButtonText: "Không",
-          loadingButton: true,
-        }
+          "Bạn có chắc chắn muốn gửi tài khoản cho học sinh đã chọn?",
+          "Thông báo!",
+          {
+            distinguishCancelAndClose: true,
+            confirmButtonText: "Có",
+            closeOnClickModal: false,
+            cancelButtonText: "Không",
+            loadingButton: true,
+          }
       ).then(() => {
         this.openFullScreen2();
         StudentService.sendAccountStudent(list)
-          .then((response) => {
-            this.loading.close();
-            console.log(response);
-            this.$message({
-              message: response.data.message,
-              type: "success",
+            .then((response) => {
+              this.loading.close();
+              console.log(response);
+              this.$message({
+                message: response.data.message,
+                type: "success",
+              });
+              this.searchByProperties();
+            })
+            .catch((err) => {
+              this.loading.close();
+              console.log(err);
+              this.$message({
+                message: err.response.data.message,
+                type: "error",
+              });
+            })
+            .finally(() => {
+              setTimeout(() => {
+                this.loadingButton = false;
+              }, 500);
             });
-            this.searchByProperties();
-          })
-          .catch((err) => {
-            this.loading.close();
-            console.log(err);
-            this.$message({
-              message: err.response.data.message,
-              type: "error",
-            });
-          })
-          .finally(() => {
-            setTimeout(() => {
-              this.loadingButton = false;
-            }, 500);
-          });
       });
     },
     openFullScreen2() {
@@ -1630,36 +1647,36 @@ export default {
     searchByProperties() {
       this.loadingData = true;
       StudentService.searchKids(
-        this.pageNumber,
-        this.maxPageItem,
-        this.dataSearch.loginStatus,
-        this.dataSearch.status,
-        this.dataSearch.idGrade,
-        this.dataSearch.idClass,
-        this.dataSearch.nameOrPhone,
-        this.dataSearch.type,
-        this.dataSearch.dateList
+          this.pageNumber,
+          this.maxPageItem,
+          this.dataSearch.loginStatus,
+          this.dataSearch.status,
+          this.dataSearch.idGrade,
+          this.dataSearch.idClass,
+          this.dataSearch.nameOrPhone,
+          this.dataSearch.type,
+          this.dataSearch.dateList
       )
-        .then((resp) => {
-          if (this.getAppTypeUserLogin == "teacher") {
-            this.studentList =
-              this.dataSearch.idClass != "" ? resp.data.data.dataList : [];
-          } else {
-            this.studentList = resp.data.data.dataList;
-          }
-          this.pageTotal = resp.data.data.total;
-        })
-        .catch((err) => {
-          this.pageTotal = 1;
-          this.studentList = [];
-          console.log(err);
-        })
-        .finally(() => {
-          if (this.studentList.length == 0) {
-            this.textTable = this.$tableEmpty;
-          }
-          this.loadingData = false;
-        });
+          .then((resp) => {
+            if (this.getAppTypeUserLogin == "teacher") {
+              this.studentList =
+                  this.dataSearch.idClass != "" ? resp.data.data.dataList : [];
+            } else {
+              this.studentList = resp.data.data.dataList;
+            }
+            this.pageTotal = resp.data.data.total;
+          })
+          .catch((err) => {
+            this.pageTotal = 1;
+            this.studentList = [];
+            console.log(err);
+          })
+          .finally(() => {
+            if (this.studentList.length == 0) {
+              this.textTable = this.$tableEmpty;
+            }
+            this.loadingData = false;
+          });
     },
     /**
      * Chuyển đồi học sinh ra trường
@@ -1683,28 +1700,28 @@ export default {
     //click delete at row
     handleDelete(index, row) {
       this.$confirm(
-        "Thao tác này sẽ xóa toàn bộ thông tin của học sinh bao gồm cả thông tin tài chính. Bạn có chắc chắn muốn xóa học sinh đã chọn?",
-        "Thông báo!",
-        {
-          distinguishCancelAndClose: true,
-          confirmButtonText: "Có",
-          cancelButtonText: "Không",
-        }
+          "Thao tác này sẽ xóa toàn bộ thông tin của học sinh bao gồm cả thông tin tài chính. Bạn có chắc chắn muốn xóa học sinh đã chọn?",
+          "Thông báo!",
+          {
+            distinguishCancelAndClose: true,
+            confirmButtonText: "Có",
+            cancelButtonText: "Không",
+          }
       ).then(() => {
         StudentService.delete(row.id)
-          .then((resp) => {
-            this.$message({
-              message: resp.data.message,
-              type: "success",
+            .then((resp) => {
+              this.$message({
+                message: resp.data.message,
+                type: "success",
+              });
+              this.searchByProperties();
+            })
+            .catch((err) => {
+              this.$message({
+                message: err.response.data.message,
+                type: "error",
+              });
             });
-            this.searchByProperties();
-          })
-          .catch((err) => {
-            this.$message({
-              message: err.response.data.message,
-              type: "error",
-            });
-          });
       });
     },
     /**
@@ -1712,12 +1729,12 @@ export default {
      */
     async getSchoolConfigAddMethod() {
       await CommonOnekidsService.getSchoolConfigAdd()
-        .then((resp) => {
-          this.deleteStatusButton = resp.data.data.deleteStatus;
-        })
-        .catch((err) => {
-          throw err;
-        });
+          .then((resp) => {
+            this.deleteStatusButton = resp.data.data.deleteStatus;
+          })
+          .catch((err) => {
+            throw err;
+          });
     },
 
     /**
@@ -1731,54 +1748,54 @@ export default {
     /**
      * tìm tất cả các khối trong một trường
      */
-    async getAllGrade() {
-      await GradeService.getGradeInPrinciple()
-        .then((resp) => {
-          this.gradeList = resp.data.data;
-          if (this.gradeList.length > 0) {
-            this.dataSearch.idGrade = this.gradeList[0].id;
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+    // async getAllGrade() {
+    //   if (this.gradeOfSchoolList.length === 0) {
+    //     await GradeService.getGradeInPrinciple()
+    //         .then((resp) => {
+    //           this.gradeOfSchoolList = resp.data.data;
+    //
+    //         })
+    //         .catch((err) => {
+    //           console.log(err);
+    //         });
+    //   }
+    //
+    // },
     /**
      * tìm tất cả lớp trong một khối
      */
-    async getClassOfGrade() {
-      await MaClassService.getClassInGrade(this.dataSearch.idGrade)
-        .then((resp) => {
-          this.classList = resp.data.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+    // async getClassOfGrade() {
+    //   await MaClassService.getClassInGrade(this.dataSearch.idGrade)
+    //     .then((resp) => {
+    //       this.classList = resp.data.data;
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
     //get class for teacher
     async getClassListTeacher() {
       await TeacherService.getClassInTeacher()
-        .then((resp) => {
-          this.classList = resp.data.data;
-          this.dataSearch.idClass = this.classList.filter((x) => x.checked)[0].id;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+          .then((resp) => {
+            this.classList = resp.data.data;
+            this.dataSearch.idClass = this.classList.filter((x) => x.checked)[0].id;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
     },
     /**
      * get data initial
      */
     async fetchDataMany() {
       if (this.getAppTypeUserLogin == "plus") {
-        await Promise.all([this.getAllGrade(), this.getSchoolConfigAddMethod()])
-          .then(() => {
-            this.getClassOfGrade();
-            this.searchByProperties();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        await Promise.all([this.getSchoolConfigAddMethod()])
+            .then(() => {
+              this.searchByProperties();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
       } else if (this.getAppTypeUserLogin == "teacher") {
         this.getClassListTeacher().then(() => {
           this.searchByProperties();
@@ -1857,74 +1874,89 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/deep/.el-pagination .el-select .el-input {
+/deep/ .el-pagination .el-select .el-input {
   width: 75px;
 }
 
-/deep/.el-checkbox__inner {
+/deep/ .el-checkbox__inner {
   border: 1px solid gray;
 }
+
 // /deep/.el-table td,
 // /deep/.el-table th {
 //   padding: 6px 0;
 // }
-/deep/.el-table th > .cell {
+/deep/ .el-table th > .cell {
   text-align: center !important;
 }
-/deep/.el-table th.gutter {
+
+/deep/ .el-table th.gutter {
   background-color: #78a5e7;
 }
-/deep/.el-icon-loading:before {
+
+/deep/ .el-icon-loading:before {
   content: "\e6cf";
 }
-/deep/.el-loading-spinner .el-loading-text {
+
+/deep/ .el-loading-spinner .el-loading-text {
   color: #606266;
   font-size: 15px;
 }
-/deep/.el-loading-spinner {
+
+/deep/ .el-loading-spinner {
   top: 67%;
   width: 100%;
   text-align: center;
   position: absolute;
 }
+
 // /deep/.el-table--scrollable-y .el-table__body-wrapper {
 //   overflow-y: auto;
 //   margin-top: -1px;
 // }
-/deep/.el-checkbox__inner {
+/deep/ .el-checkbox__inner {
   border: 1px solid gray;
 }
+
 .click-fullname {
   border: none;
   padding: 0;
   color: blue;
 }
+
 .click-fullname:hover {
   color: blue;
   background: none;
 }
+
 .content {
   .row-data {
     margin-bottom: 20px;
   }
+
   .button-left-status {
     margin-right: 5px;
     width: 130px;
   }
+
   .button-left-class {
     margin-right: 5px;
     width: 150px;
   }
+
   .button-over {
     border-radius: 0;
     margin-left: 3px;
   }
+
   .button-click-left {
     display: inline-block;
   }
+
   .button-click {
     float: right;
   }
+
   .table-content {
     .el-table {
       border-top-left-radius: 5px;
@@ -1932,6 +1964,7 @@ export default {
       border: 1px solid #78a5e7;
     }
   }
+
   .paging-click {
     .el-pagination {
       text-align: right;
@@ -1939,6 +1972,7 @@ export default {
     }
   }
 }
+
 .el-dropdown-menu {
   position: absolute;
   top: 0;
@@ -1950,24 +1984,29 @@ export default {
   border-radius: 0;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
+
 .el-dropdown-menu li {
   color: white;
   border-top: 1px solid white;
   font-family: Arial, Helvetica, sans-serif;
 }
+
 .click-in-row {
   border: none;
   padding: 0;
   color: #3a3ace;
 }
+
 .click-in-row:hover {
   color: #fa03d9;
 }
+
 .handle-account {
   border: none;
   padding: 0;
   color: red;
 }
+
 .handle-account:hover {
   color: #fa03d9;
 }

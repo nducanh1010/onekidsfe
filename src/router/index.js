@@ -8,6 +8,16 @@ import Layout from '@/layout'
 import Master from '@/layout/components/Master.vue'
 
 export const constantRoutes = [
+  // {
+  //   path:'/fee-data-table',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: '',
+  //       component: () => import('@/components/Finance/OrderKidsFee/FeeDataTable')
+  //     }
+  //   ]
+  // },
   {
     path: '*',
     component: () => import('@/views/error-page/NotFound.vue'),
@@ -145,6 +155,7 @@ export const constantRoutes = [
       },
     ]
   },
+
   {
     path: '/student-quality',
     component: Layout,

@@ -1,5 +1,5 @@
 <template>
-
+  <div>
     <div style="
             margin-bottom: 20px;
             position: relative;
@@ -7,7 +7,8 @@
             display: inline-block;
           ">
       <el-date-picker style="width: 115px" class="input-common" :clearable="false"
-                      @change="searchOrderKidsByProperties()" v-model="dataSearch.date" type="month" value-format="yyyy-MM-dd"
+                      @change="searchOrderKidsByProperties()" v-model="dataSearch.date" type="month"
+                      value-format="yyyy-MM-dd"
                       format="MM-yyyy">
       </el-date-picker>
       <!-- chọn trạng thái -->
@@ -51,7 +52,7 @@
       <el-dropdown @command="handleStatisticalCommandMethod" v-if="checkPermission(['fees_order_statistical'])">
         <el-button type="success" class="button-bottom" icon="el-icon-s-data">
           Thống kê
-          <i class="el-icon-caret-bottom" />
+          <i class="el-icon-caret-bottom"/>
         </el-button>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="statisticalMiniCommand">Số liệu học phí</el-dropdown-item>
@@ -69,5 +70,9 @@
     </div>
   </div>
 </template>
-<script setup>
+<script >
+export  default {
+  name:"SearchOrder"
+}
+
 </script>
