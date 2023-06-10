@@ -1060,6 +1060,7 @@ export default {
       await MaClassService.getClassInGrade(this.dataSearch.idGrade)
         .then((resp) => {
           this.classOfGradeList = resp.data.data;
+          console.log('danh sach lop', this.classOfGradeList)
           if (this.classOfGradeList.length > 0) {
             this.dataSearch.idClass = this.classOfGradeList[0].id;
           } else {

@@ -60,7 +60,7 @@
               style="width: 40px; height: 40px; line-height: 50px"
               class="user-avatar"
               :src="getAvatar"
-              :fit="fit"
+              fit="fit"
             ></el-image>
           </div>
           <el-dropdown-menu slot="dropdown">

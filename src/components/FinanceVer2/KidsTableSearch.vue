@@ -6,32 +6,32 @@
             z-index: 1;
             display: inline-block;
           ">
-      <el-date-picker style="width: 115px" class="input-common" :clearable="false"
-                      @change="searchOrderKidsByProperties()" v-model="dataSearch.date" type="month" value-format="yyyy-MM-dd"
-                      format="MM-yyyy">
-      </el-date-picker>
-      <!-- chọn trạng thái -->
-      <el-select style="width: 110px" class="input-common" v-model="dataSearch.status"
-                 @change="searchOrderKidsByProperties()" placeholder="Trạng thái">
-        <el-option v-for="item in kidStatusList" :key="item.key" :value="item.key" :label="item.value"></el-option>
-      </el-select>
+<!--      <el-date-picker style="width: 115px" class="input-common" :clearable="false"-->
+<!--                      @change="searchOrderKidsByProperties()" v-model="dataSearch.date" type="month" value-format="yyyy-MM-dd"-->
+<!--                      format="MM-yyyy">-->
+<!--      </el-date-picker>-->
+<!--      &lt;!&ndash; chọn trạng thái &ndash;&gt;-->
+<!--      <el-select style="width: 110px" class="input-common" v-model="dataSearch.status"-->
+<!--                 @change="searchOrderKidsByProperties()" placeholder="Trạng thái">-->
+<!--        <el-option v-for="item in kidStatusList" :key="item.key" :value="item.key" :label="item.value"></el-option>-->
+<!--      </el-select>-->
 
       <!-- chọn khối -->
-      <el-select class="input-common input-grade" style="width: 90px" v-model="dataSearch.idGrade"
-                 @change="changeGradeSearch()" placeholder="Chọn khối">
-        <el-option v-for="item in gradeOfSchoolList" :key="item.id" :value="item.id"
-                   :label="item.gradeName"></el-option>
-      </el-select>
+<!--      <el-select class="input-common input-grade" style="width: 90px" v-model="dataSearch.idGrade"-->
+<!--                 @change="changeGradeSearch()" placeholder="Chọn khối">-->
+<!--        <el-option v-for="item in gradeOfSchoolList" :key="item.id" :value="item.id"-->
+<!--                   :label="item.gradeName"></el-option>-->
+<!--      </el-select>-->
 
       <!-- chọn lớp -->
-      <el-select class="input-common input-class" style="width: 120px" v-model="dataSearch.idClass"
-                 placeholder="Chọn lớp" @change="searchOrderKidsByProperties()">
-        <el-option v-for="item in classOfGradeList" :key="item.id" :value="item.id"
-                   :label="item.className"></el-option>
-      </el-select>
+<!--      <el-select class="input-common input-class" style="width: 120px" v-model="dataSearch.idClass"-->
+<!--                 placeholder="Chọn lớp" @change="searchOrderKidsByProperties()">-->
+<!--        <el-option v-for="item in classOfGradeList" :key="item.id" :value="item.id"-->
+<!--                   :label="item.className"></el-option>-->
+<!--      </el-select>-->
       <!-- trạng thái -->
-      <el-select class="input-common input-class" style="width: 145px" clearable v-model="dataSearch.statusOrder"
-                 placeholder="Chọn trạng thái" @change="filterChangeStatusMethod()">
+      <el-select class="input-common input-class" style="width: 145px" clearable
+                 placeholder="Chọn trạng thái">
         <el-option value="orderYet" label="Chưa có hóa đơn"></el-option>
         <el-option value="orderNo" label="Chưa có khoản"></el-option>
         <el-option value="completeNo" label="Chưa hoàn thành"></el-option>
@@ -41,9 +41,9 @@
         <el-option value="orderInComplete" label="Còn tồn hóa đơn"></el-option>
       </el-select>
       <el-input class="input-common input-class" style="width: 220px" placeholder="Nhập tên học sinh" clearable
-                v-model="dataSearch.fullName" @clear="searchOrderKidsByProperties()"
-                @keyup.enter.native="searchOrderKidsByProperties()">
-        <el-button v-slot:append icon="el-icon-search" @click="searchOrderKidsByProperties()"></el-button>
+
+                >
+        <el-button v-slot:append icon="el-icon-search""></el-button>
       </el-input>
       </div>
   </div>

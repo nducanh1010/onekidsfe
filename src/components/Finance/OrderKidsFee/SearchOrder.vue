@@ -1,5 +1,5 @@
 <template>
-
+<div>
     <div style="
             margin-bottom: 20px;
             position: relative;
@@ -67,7 +67,24 @@
         Tìm kiếm
       </el-button>
     </div>
-  </div>
+</div>
 </template>
-<script setup>
+<script>
+export default {
+  name:'SearchOrder',
+  data(){
+    return{
+      dataSearch: {
+        date: '',
+        status: "STUDYING",
+        idClass: "",
+        fullName: "",
+        walletStatus: false,
+        statusOrder: "",
+      },
+      gradeOfSchoolList:[]
+
+    }
+  }
+}
 </script>

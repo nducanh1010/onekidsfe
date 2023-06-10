@@ -10,8 +10,6 @@
       "
       default-active="2"
       class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
       :collapse="getIsOpenCloseManu"
       background-color="#304156"
       text-color="#bfcbd9"
@@ -312,15 +310,18 @@
       </el-submenu>
       <el-submenu
           index="7"
-          v-if="getAppTypeUserLogin != appType.SUPPER_SCHOOL && checkPermission(['fees'])"
       >
         <template slot="title">
           <i class="el-icon-money" />
           <span>Học phí &amp; dịch vụ II</span>
         </template>
+   <router-link to="finance/v2/import_export"
+                class="router-link"
+                replace>
         <el-menu-item>
             Thu theo lớp
         </el-menu-item>
+   </router-link>
         <el-menu-item>
           Thu theo nhóm
         </el-menu-item>
@@ -1155,8 +1156,6 @@
       "
       default-active="2"
       class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
       :collapse="getIsOpenCloseManu"
       background-color="#304156"
       text-color="#bfcbd9"

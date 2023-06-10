@@ -14,7 +14,6 @@
           <span>{{ scope.row.orderKids.code }}</span>
         </template>
       </el-table-column>
-
       <el-table-column min-width="150" fixed  label="Họ tên">
         <template slot-scope="scope">
           <el-button class="click-in-row" type="text" @click="detialApprovedKidsMethod(scope.row)">
@@ -34,7 +33,141 @@
           width="70"
           label="Hiển thị">
       </el-table-column>
-
+      <el-table-column
+          align="center"
+          width="70"
+          label="Tồn Hóa Đơn">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="70"
+          label="Trạng thái">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="70"
+          label="Tồn tháng trước">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="70"
+          label="Phải thu">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Đã thu">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Tồn">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Khoản 1">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Khoản 1">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Khoản 2">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Khoản 3">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Khoản 4">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Khoản 5">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Khoản 6">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Khoản 7">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Khoản 8">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Khoản 9">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Khoản 10">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Khoản 11">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Khoản 12">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Khoản 13">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Khoản 14">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Khoản 15">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Khoản 16">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Khoản 17">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Khoản 18">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Khoản 19">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          width="120"
+          label="Khoản 20">
+      </el-table-column>
 
 <!--      <el-table-column label="Ngày sinh" width="120" align="center">-->
 <!--        <template slot-scope="scope">-->
@@ -197,6 +330,8 @@
 export default {
 
   name:'KidsExcelTable',
+data(){
 
+}
 }
 </script>

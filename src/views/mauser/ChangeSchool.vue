@@ -12,10 +12,7 @@
         ref="multipleTable"
         :data="responseList"
         highlight-current-row
-        :row-style="tableRowStyle"
         :header-cell-style="tableHeaderColor"
-        @selection-change="handleSelectionChange"
-        :max-height="$tableMaxHeight"
         border
       >
         <el-table-column

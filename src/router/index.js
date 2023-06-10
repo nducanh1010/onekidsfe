@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../views/Home'
-
+import {financeV2Route} from "@/router/financeV2";
 Vue.use(Router)
 
 import Layout from '@/layout'
 import Master from '@/layout/components/Master.vue'
 
 export const constantRoutes = [
+    ...financeV2Route,
   {
     path: '*',
     component: () => import('@/views/error-page/NotFound.vue'),
@@ -743,6 +744,7 @@ export const constantRoutes = [
 const createRouter = () => new Router({
   mode: 'history',
   routes: constantRoutes
+
 })
 
 const router = createRouter()
