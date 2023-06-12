@@ -1,6 +1,6 @@
 <template>
   <div class="app-wrapper">
-    <Menu style="float:left" />
+    <Menu style="float: left" />
     <navbar />
     <section class="app-main">
       <router-view></router-view>
