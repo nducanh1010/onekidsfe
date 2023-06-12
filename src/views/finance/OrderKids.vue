@@ -9,31 +9,32 @@
             display: inline-block;
           ">
           <el-date-picker style="width: 115px" class="input-common" :clearable="false"
-            @change="searchOrderKidsByProperties()" v-model="dataSearch.date" type="month" value-format="yyyy-MM-dd"
-            format="MM-yyyy">
+                          @change="searchOrderKidsByProperties()" v-model="dataSearch.date" type="month"
+                          value-format="yyyy-MM-dd"
+                          format="MM-yyyy">
           </el-date-picker>
           <!-- chọn trạng thái -->
           <el-select style="width: 110px" class="input-common" v-model="dataSearch.status"
-            @change="searchOrderKidsByProperties()" placeholder="Trạng thái">
+                     @change="searchOrderKidsByProperties()" placeholder="Trạng thái">
             <el-option v-for="item in kidStatusList" :key="item.key" :value="item.key" :label="item.value"></el-option>
           </el-select>
 
           <!-- chọn khối -->
           <el-select class="input-common input-grade" style="width: 90px" v-model="dataSearch.idGrade"
-            @change="changeGradeSearch()" placeholder="Chọn khối">
+                     @change="changeGradeSearch()" placeholder="Chọn khối">
             <el-option v-for="item in gradeOfSchoolList" :key="item.id" :value="item.id"
-              :label="item.gradeName"></el-option>
+                       :label="item.gradeName"></el-option>
           </el-select>
 
           <!-- chọn lớp -->
           <el-select class="input-common input-class" style="width: 120px" v-model="dataSearch.idClass"
-            placeholder="Chọn lớp" @change="searchOrderKidsByProperties()">
+                     placeholder="Chọn lớp" @change="searchOrderKidsByProperties()">
             <el-option v-for="item in classOfGradeList" :key="item.id" :value="item.id"
-              :label="item.className"></el-option>
+                       :label="item.className"></el-option>
           </el-select>
           <!-- trạng thái -->
           <el-select class="input-common input-class" style="width: 145px" clearable v-model="dataSearch.statusOrder"
-            placeholder="Chọn trạng thái" @change="filterChangeStatusMethod()">
+                     placeholder="Chọn trạng thái" @change="filterChangeStatusMethod()">
             <el-option value="orderYet" label="Chưa có hóa đơn"></el-option>
             <el-option value="orderNo" label="Chưa có khoản"></el-option>
             <el-option value="completeNo" label="Chưa hoàn thành"></el-option>
@@ -43,8 +44,8 @@
             <el-option value="orderInComplete" label="Còn tồn hóa đơn"></el-option>
           </el-select>
           <el-input class="input-common input-class" style="width: 220px" placeholder="Nhập tên học sinh" clearable
-            v-model="dataSearch.fullName" @clear="searchOrderKidsByProperties()"
-            @keyup.enter.native="searchOrderKidsByProperties()">
+                    v-model="dataSearch.fullName" @clear="searchOrderKidsByProperties()"
+                    @keyup.enter.native="searchOrderKidsByProperties()">
             <el-button slot="append" icon="el-icon-search" @click="searchOrderKidsByProperties()"></el-button>
           </el-input>
           <el-checkbox @change="searchOrderKidsByProperties()" v-model="dataSearch.walletStatus">Còn dư ví</el-checkbox>
@@ -53,7 +54,7 @@
           <el-dropdown @command="handleStatisticalCommandMethod" v-if="checkPermission(['fees_order_statistical'])">
             <el-button type="success" class="button-bottom" icon="el-icon-s-data">
               Thống kê
-              <i class="el-icon-caret-bottom" />
+              <i class="el-icon-caret-bottom"/>
             </el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="statisticalMiniCommand">Số liệu học phí</el-dropdown-item>
@@ -65,7 +66,7 @@
             Thống kê
           </el-button> -->
           <el-button style="border-radius: 0; margin-left: 5px" type="success" @click="kidsDialogMethod()"
-            icon="el-icon-search">
+                     icon="el-icon-search">
             Tìm kiếm
           </el-button>
         </div>
@@ -73,23 +74,26 @@
       <div class="table-content row-data">
         <!-- chi tiết khoản các học sinh -->
         <el-table ref="kidsPackageForKidsRef" :data="responseFilterList" :empty-text="textTable" v-loading="loadingData"
-          :element-loading-text="$tableLoadding" element-loading-spinner="el-icon-loading"
-          element-loading-background="rgba(255,255,255, 0)" :cell-style="tableRowStyle"
-          :header-cell-style="tableHeaderColor" @selection-change="handleSelectionChange" :max-height="$tableMaxHeight"
-          border>
+                  :element-loading-text="$tableLoadding" element-loading-spinner="el-icon-loading"
+                  element-loading-background="rgba(255,255,255, 0)" :cell-style="tableRowStyle"
+                  :header-cell-style="tableHeaderColor" @selection-change="handleSelectionChange"
+                  :max-height="$tableMaxHeight"
+                  border>
           <el-table-column type="selection" align="center" width="55"></el-table-column>
           <el-table-column type="index" fixed label="STT" width="50" align="center"></el-table-column>
-          <el-table-column min-width="150"     label="Họ tên">
+          <el-table-column min-width="150" label="Họ tên">
             <template slot-scope="scope">
               <el-button class="click-in-row" type="text" @click="detialApprovedKidsMethod(scope.row)">
-                {{ scope.row.fullName }}</el-button>
+                {{ scope.row.fullName }}
+              </el-button>
             </template>
           </el-table-column>
 
           <el-table-column label="Ngày sinh" width="120" align="center">
             <template slot-scope="scope">
               <span>{{ scope.row.birthDay | formatDate }}</span>
-            </template></el-table-column>
+            </template>
+          </el-table-column>
           <el-table-column width="125" align="center" label="Mã hóa đơn">
             <template slot-scope="scope" v-if="scope.row.orderKids != null">
               <span>{{ scope.row.orderKids.code }}</span>
@@ -103,13 +107,15 @@
           <el-table-column align="center" width="70" label="Khóa">
             <template slot-scope="scope" v-if="scope.row.orderKids != null">
               <el-checkbox :disabled="!checkPermission(['fees_order_locked'])" v-model="scope.row.orderKids.locked"
-                @change="lockedOrderMethod(scope.row)"></el-checkbox>
+                           @change="lockedOrderMethod(scope.row)"></el-checkbox>
             </template>
           </el-table-column>
           <el-table-column align="center" width="120" label="Tồn hóa đơn cũ">
             <template slot-scope="scope" v-if="scope.row.inCompleteOrderNumber > 0">
               <!-- <span>{{scope.row.inCompleteOrderNumber}}</span> -->
-              <el-button type="text" size="mini" @click="orderKidsMonthNoMethod(scope.row)">{{scope.row.inCompleteOrderNumber}}</el-button>
+              <el-button type="text" size="mini" @click="orderKidsMonthNoMethod(scope.row)">
+                {{ scope.row.inCompleteOrderNumber }}
+              </el-button>
             </template>
           </el-table-column>
           <el-table-column align="center" width="125" label="Trạng thái">
@@ -134,21 +140,22 @@
             <template slot-scope="scope" v-if="scope.row.orderKids != null">
               <span class="high-light">{{
                   scope.row.orderKids.totalMoneyRemainIn | formatCurrencyNew
-              }}</span>
+                }}</span>
             </template>
           </el-table-column>
           <el-table-column align="right" width="120" label="Còn lại chi">
             <template slot-scope="scope" v-if="scope.row.orderKids != null">
               <span class="high-light">{{
                   scope.row.orderKids.totalMoneyRemainOut | formatCurrencyNew
-              }}</span>
-            </template></el-table-column>
+                }}</span>
+            </template>
+          </el-table-column>
           <el-table-column align="right" width="120" label="T.Thu - T.Chi">
             <template slot-scope="scope" v-if="scope.row.orderKids != null">
               <span>{{
                   (scope.row.orderKids.moneyTotalIn - scope.row.orderKids.moneyTotalOut)
-                  | formatCurrencyNew
-              }}</span>
+                      | formatCurrencyNew
+                }}</span>
             </template>
           </el-table-column>
           <el-table-column align="right" width="120" label="Tổng thu">
@@ -165,42 +172,47 @@
             <template slot-scope="scope" v-if="scope.row.orderKids != null">
               <span>{{
                   (scope.row.orderKids.moneyTotalIn - scope.row.orderKids.moneyPaidIn)
-                  | formatCurrencyNew
-              }}</span>
+                      | formatCurrencyNew
+                }}</span>
             </template>
           </el-table-column>
           <el-table-column align="right" width="120" label="Tổng chi">
             <template slot-scope="scope" v-if="scope.row.orderKids != null">
               <span>{{ scope.row.orderKids.moneyTotalOut | formatCurrencyNew }}</span>
-            </template></el-table-column>
+            </template>
+          </el-table-column>
           <el-table-column align="right" width="120" label="Đã chi">
             <template slot-scope="scope" v-if="scope.row.orderKids != null">
               <span>{{ scope.row.orderKids.moneyPaidOut | formatCurrencyNew }}</span>
-            </template></el-table-column>
+            </template>
+          </el-table-column>
           <el-table-column align="right" width="120" label="Chi thiếu">
             <template slot-scope="scope" v-if="scope.row.orderKids != null">
               <span>{{
                   (scope.row.orderKids.moneyTotalOut - scope.row.orderKids.moneyPaidOut)
-                  | formatCurrencyNew
-              }}</span>
+                      | formatCurrencyNew
+                }}</span>
             </template>
           </el-table-column>
           <el-table-column label="Tác vụ" fixed="right" :width="checkPermission(['fees_order_payment']) ? 330 : 230"
-            align="center">
+                           align="center">
             <template slot-scope="scope">
               <el-button v-if="checkPermission(['fees_order_payment'])" :disabled="
                 scope.row.orderKids == null ||
                 scope.row.orderKids.totalNumber == 0 ||
                 scope.row.orderKids.locked
-              " size="mini" type="primary" @click="orderKidsCasherMethod(scope.row)">Thanh toán</el-button>
+              " size="mini" type="primary" @click="orderKidsCasherMethod(scope.row)">Thanh toán
+              </el-button>
               <el-button :disabled="
                 scope.row.orderKids == null || scope.row.orderKids.totalNumber == 0
               " type="success" size="mini" @click="orderKidsDetailMethod(scope.row)">
-                Chi tiết</el-button>
+                Chi tiết
+              </el-button>
               <el-button :disabled="
                 scope.row.orderKids == null || scope.row.orderKids.totalNumber == 0
               " size="mini" type="warning" @click="orderKidsHistoryMethod(scope.row)">
-                Lịch sử</el-button>
+                Lịch sử
+              </el-button>
               <el-button :disabled="
                 scope.row.orderKids == null || scope.row.orderKids.totalNumber == 0
               " type="success" size="mini" @click="orderKidsMonthMethod(scope.row)"><i
@@ -210,14 +222,14 @@
         </el-table>
         <div style="float: right; margin: 15px 0">
           <el-button :loading="loaddingButtonGenerate" type="success" class="button-bottom"
-            @click="gengerateOrderMethod()">
+                     @click="gengerateOrderMethod()">
             Khởi tạo hóa đơn
           </el-button>
 
           <el-dropdown @command="handlePrintCommandMethod">
             <el-button :loading="loaddingButtonPrint" type="success" class="button-bottom">
               In hóa đơn
-              <i class="el-icon-caret-bottom" />
+              <i class="el-icon-caret-bottom"/>
             </el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="allPrintCommand">Tổng hợp</el-dropdown-item>
@@ -229,15 +241,17 @@
           <el-dropdown @command="handleCommandMethod">
             <el-button type="success" class="button-bottom" :loading="loaddingButtonAction">
               Tác vụ
-              <i class="el-icon-caret-bottom" />
+              <i class="el-icon-caret-bottom"/>
             </el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="viewCommand">Hiển thị</el-dropdown-item>
               <el-dropdown-item command="unViewCommand">Bỏ hiển thị</el-dropdown-item>
               <el-dropdown-item v-if="checkPermission(['fees_order_locked'])"
-                command="lockedCommand">Khóa</el-dropdown-item>
+                                command="lockedCommand">Khóa
+              </el-dropdown-item>
               <el-dropdown-item v-if="checkPermission(['fees_order_locked'])" command="unLockedCommand">Bỏ
-                khóa</el-dropdown-item>
+                khóa
+              </el-dropdown-item>
               <el-dropdown-item command="viewDetailAll">Xem tổng hợp</el-dropdown-item>
               <el-dropdown-item command="exportExcelNowCommand">Xuất Excel hiện tại</el-dropdown-item>
               <el-dropdown-item command="exportExcelCommand">Xuất Excel học phí</el-dropdown-item>
@@ -250,24 +264,26 @@
       <!-- <el-button @click="reloadPage()">OK</el-button> -->
     </div>
     <OrderKidsCasher :dialogVisible="showOrderKidsCasherDialog" @dialog-close="closeOrderKidsCasherDialog()"
-      ref="OrderKidsCasher" />
+                     ref="OrderKidsCasher"/>
     <OrderKidsHistoryDialog :dialogVisible="showOrderKidsHistoryDialog" @dialog-close="closeOrderKidsHistoryDialog()"
-      ref="OrderKidsHistoryDialog" />
+                            ref="OrderKidsHistoryDialog"/>
     <OrderKidsMonthDialog :dialogVisible="showOrderKidsMonthDialog" @dialog-close="closeOrderKidsMonthDialog()"
-      ref="OrderKidsMonthDialog" />
+                          ref="OrderKidsMonthDialog"/>
     <OrderKidsDetailDialog :dialogVisible="showOrderKidsDetailDialog" @dialog-close="closeOrderKidsDetailDialog()"
-      ref="OrderKidsDetailDialog" />
-    <KidsInfoData :dialogVisible="showKidsDialog" @dialog-close="closeKidsDialog()" />
+                           ref="OrderKidsDetailDialog"/>
+    <KidsInfoData :dialogVisible="showKidsDialog" @dialog-close="closeKidsDialog()"/>
     <StatisticalCommonDialog :dialogVisible="showStatisticalCommonDialog" @dialog-close="closeStatisticalCommonDialog()"
-      ref="StatisticalCommonDialog" />
-    <StatisticalCommonMiniDialog :dialogVisible="showStatisticalCommonMiniDialog" @dialog-close="closeStatisticalCommonMiniDialog()"
-      ref="StatisticalCommonMiniDialog" />
+                             ref="StatisticalCommonDialog"/>
+    <StatisticalCommonMiniDialog :dialogVisible="showStatisticalCommonMiniDialog"
+                                 @dialog-close="closeStatisticalCommonMiniDialog()"
+                                 ref="StatisticalCommonMiniDialog"/>
     <ViewAllDataClassDialog :dataList="responseFilterList" :classNameData="classNameData"
-      :dialogVisible="showDialogViewAll" @dialog-close="closeViewAllDialog()" ref="ViewAllDataClassDialog" />
+                            :dialogVisible="showDialogViewAll" @dialog-close="closeViewAllDialog()"
+                            ref="ViewAllDataClassDialog"/>
     <OrderPrintManyKidDialog :dialogVisible="showPrintOrderDialog" @dialog-close="closePrintOrderDialog()"
-      ref="OrderPrintManyKidDialog" />
+                             ref="OrderPrintManyKidDialog"/>
     <PackageKidsApprovedKidDialog :dialogVisible="showDetialApprovedDialog" @dialog-close="closeDetialApprovedDialog()"
-      ref="PackageKidsApprovedKidDialog" />
+                                  ref="PackageKidsApprovedKidDialog"/>
   </div>
 </template>
 
@@ -276,8 +292,6 @@ import FnFeesService from "@/services/FnFeesService";
 import checkPermission from "@/utils/permission.js";
 
 import moment from "moment";
-import GradeService from "@/services/GradeService";
-import MaClassService from "@/services/MaClassService";
 import OrderKidsCasher from "./OrderKidsCasher.vue";
 import OrderKidsHistoryDialog from "./OrderKidsHistoryDialog.vue";
 import OrderKidsMonthDialog from "./OrderKidsMonthDialog.vue";
@@ -288,11 +302,13 @@ import StatisticalCommonDialog from "./StatisticalCommonDialog.vue";
 import StatisticalCommonMiniDialog from "./StatisticalCommonMiniDialog.vue";
 import OrderPrintManyKidDialog from "./OrderPrintManyKidDialog.vue";
 import PackageKidsApprovedKidDialog from "./PackageKidsApprovedKidDialog.vue";
+import {mapActions, mapGetters} from "vuex";
+
 const valkidStatusList = [
-  { key: "STUDYING", value: "Đang học" },
-  { key: "STUDY_WAIT", value: "Chờ học" },
-  { key: "RESERVE", value: "Bảo lưu" },
-  { key: "LEAVE_SCHOOL", value: "Nghỉ học" },
+  {key: "STUDYING", value: "Đang học"},
+  {key: "STUDY_WAIT", value: "Chờ học"},
+  {key: "RESERVE", value: "Bảo lưu"},
+  {key: "LEAVE_SCHOOL", value: "Nghỉ học"},
 ];
 export default {
   components: {
@@ -337,8 +353,8 @@ export default {
       showKidsDialog: false,
       showStatisticalCommonDialog: false,
       showStatisticalCommonMiniDialog: false,
-      gradeOfSchoolList: [],
-      classOfGradeList: [],
+      // gradeOfSchoolList: [],
+      // classOfGradeList: [],
       kidStatusList: valkidStatusList,
       pastDate: moment(new Date()).add(-2, "M").format("YYYY-MM-DD"),
       futureDate: moment(new Date()).add(1, "M").format("YYYY-MM-DD"),
@@ -356,7 +372,20 @@ export default {
       styleCols2: [],
     };
   },
+  // created() {
+  //   this.fetchDataGradeOfSchoolList();
+  //   this.fetchDataClassOfGradeList(this.dataSearch.idGrade)
+  // },
+  computed: {
+    getAppTypeUserLogin() {
+      return this.$store.state.auth.user.appType;
+    },
+    ...mapGetters('gradeStore', ['gradeOfSchoolList']),
+    ...mapGetters('classStore', ['classOfGradeList']),
+  },
   methods: {
+    ...mapActions('gradeStore', ['fetchDataGradeOfSchoolList']),
+    ...mapActions('classStore', ['fetchDataClassOfGradeList']),
     checkPermission,
     // reloadPage() {
     //   this.$router.go();
@@ -364,7 +393,7 @@ export default {
     tableHeaderColor() {
       return "background-color: #78a5e7;color: #fff;font-weight: bold;";
     },
-    tableRowStyle({ row }) {
+    tableRowStyle({row}) {
       if (row.orderKids == null) {
         return "color: #409EFF";
       } else if (row.orderKids.totalNumber == 0) {
@@ -461,12 +490,12 @@ export default {
       let year = row.orderKids.year;
       this.showOrderKidsCasherDialog = true;
       this.$refs.OrderKidsCasher.getDataCasherInitial(
-        idKid,
-        idOrder,
-        orderCode,
-        month,
-        year,
-        kidName
+          idKid,
+          idOrder,
+          orderCode,
+          month,
+          year,
+          kidName
       );
     },
     orderKidsHistoryMethod(row) {
@@ -488,9 +517,9 @@ export default {
     detialApprovedKidsMethod(row) {
       this.showDetialApprovedDialog = true;
       this.$refs.PackageKidsApprovedKidDialog.getApprovedDetailInitial(
-        row.id,
-        this.dataSearch.date,
-        row.fullName
+          row.id,
+          this.dataSearch.date,
+          row.fullName
       );
     },
     kidsDialogMethod() {
@@ -509,158 +538,158 @@ export default {
       this.checkButtomBefore(selectRowList, "");
       this.loaddingButtonAction = true;
       FnFeesService.exportExcelOrderService(
-        this.dataSearch.idClass,
-        this.dataSearch.date,
-        selectRowList
+          this.dataSearch.idClass,
+          this.dataSearch.date,
+          selectRowList
       )
-        .then((resp) => {
-          import("@/services/ExportExcel").then((excel) => {
-            let dataResponse = resp.data.data;
-            let dataList = dataResponse.dataList;
-            let fileName = dataResponse.fileName;
-            const tHeader = dataResponse.titleHeaderList;
-            const filterVal = dataResponse.proList;
-            let columnList = [];
-            dataResponse.sizeColumnList.forEach((x) => {
-              let objectInput = {
-                col: x,
-              };
-              columnList.push(objectInput);
-            });
-            let charList = this.$funcData.getRoleListExcel();
-            let style = {
-              font: { bold: true },
-              fill: { fgColor: { rgb: "67C23A" } },
-              border: {
-                top: { style: "thin" },
-                bottom: { style: "thin" },
-                left: { style: "thin" },
-                right: { style: "thin" },
-              },
-            };
-            let styleColData1 = [];
-            let i = 0;
-            tHeader.forEach((x) => {
-              console.log(x);
-              styleColData1.push(charList[i] + "5");
-              i++;
-            });
-            let styleCol1 = {
-              name: styleColData1,
-              style,
-            };
-            let styleCol2 = {
-              name: ["A1", "A2", "A3", "A4"],
-              style: { font: { bold: true, color: { rgb: "black" } } },
-            };
-            this.styleCols1.push(styleCol1);
-            this.styleCols1.push(styleCol2);
-            excel
-              .export_json_to_excel({
-                header: tHeader,
-                data: dataList,
-                title: filterVal,
-                filename: fileName,
-                columnsWidth: columnList,
-                styleCols1: this.styleCols1,
-                styleCols2: this.styleCols2,
-              })
-              .finally(() => {
-                this.styleCols1 = [];
-                this.styleCols2 = [];
+          .then((resp) => {
+            import("@/services/ExportExcel").then((excel) => {
+              let dataResponse = resp.data.data;
+              let dataList = dataResponse.dataList;
+              let fileName = dataResponse.fileName;
+              const tHeader = dataResponse.titleHeaderList;
+              const filterVal = dataResponse.proList;
+              let columnList = [];
+              dataResponse.sizeColumnList.forEach((x) => {
+                let objectInput = {
+                  col: x,
+                };
+                columnList.push(objectInput);
               });
+              let charList = this.$funcData.getRoleListExcel();
+              let style = {
+                font: {bold: true},
+                fill: {fgColor: {rgb: "67C23A"}},
+                border: {
+                  top: {style: "thin"},
+                  bottom: {style: "thin"},
+                  left: {style: "thin"},
+                  right: {style: "thin"},
+                },
+              };
+              let styleColData1 = [];
+              let i = 0;
+              tHeader.forEach((x) => {
+                console.log(x);
+                styleColData1.push(charList[i] + "5");
+                i++;
+              });
+              let styleCol1 = {
+                name: styleColData1,
+                style,
+              };
+              let styleCol2 = {
+                name: ["A1", "A2", "A3", "A4"],
+                style: {font: {bold: true, color: {rgb: "black"}}},
+              };
+              this.styleCols1.push(styleCol1);
+              this.styleCols1.push(styleCol2);
+              excel
+                  .export_json_to_excel({
+                    header: tHeader,
+                    data: dataList,
+                    title: filterVal,
+                    filename: fileName,
+                    columnsWidth: columnList,
+                    styleCols1: this.styleCols1,
+                    styleCols2: this.styleCols2,
+                  })
+                  .finally(() => {
+                    this.styleCols1 = [];
+                    this.styleCols2 = [];
+                  });
+            });
+          })
+          .catch((err) => {
+            this.$message({
+              message: err.response.data.message,
+              type: "error",
+            });
+          })
+          .finally(() => {
+            setTimeout(() => {
+              this.loaddingButtonAction = false;
+            }, 1000);
           });
-        })
-        .catch((err) => {
-          this.$message({
-            message: err.response.data.message,
-            type: "error",
-          });
-        })
-        .finally(() => {
-          setTimeout(() => {
-            this.loaddingButtonAction = false;
-          }, 1000);
-        });
     },
     exportExcelOrderNowMethod() {
       let selectRowList = this.multipleSelection.map((x) => x.id);
       this.checkButtomBefore(selectRowList, "");
       this.loaddingButtonAction = true;
       FnFeesService.exportExcelOrderNowService(
-        this.dataSearch.idClass,
-        this.dataSearch.date,
-        selectRowList
+          this.dataSearch.idClass,
+          this.dataSearch.date,
+          selectRowList
       )
-        .then((resp) => {
-          import("@/services/ExportExcel").then((excel) => {
-            let dataResponse = resp.data.data;
-            let dataList = dataResponse.dataList;
-            let fileName = dataResponse.fileName;
-            const tHeader = dataResponse.titleHeaderList;
-            const filterVal = dataResponse.proList;
-            let columnList = [];
-            dataResponse.sizeColumnList.forEach((x) => {
-              let objectInput = {
-                col: x,
-              };
-              columnList.push(objectInput);
-            });
-            let charList = this.$funcData.getRoleListExcel();
-            let style = {
-              font: { bold: true },
-              fill: { fgColor: { rgb: "67C23A" } },
-              border: {
-                top: { style: "thin" },
-                bottom: { style: "thin" },
-                left: { style: "thin" },
-                right: { style: "thin" },
-              },
-            };
-            let styleColData1 = [];
-            let i = 0;
-            tHeader.forEach((x) => {
-              console.log(x);
-              styleColData1.push(charList[i] + "5");
-              i++;
-            });
-            let styleCol1 = {
-              name: styleColData1,
-              style,
-            };
-            let styleCol2 = {
-              name: ["A1", "A2", "A3", "A4"],
-              style: { font: { bold: true, color: { rgb: "black" } } },
-            };
-            this.styleCols1.push(styleCol1);
-            this.styleCols1.push(styleCol2);
-            excel
-              .export_json_to_excel({
-                header: tHeader,
-                data: dataList,
-                title: filterVal,
-                filename: fileName,
-                columnsWidth: columnList,
-                styleCols1: this.styleCols1,
-                styleCols2: this.styleCols2,
-              })
-              .finally(() => {
-                this.styleCols1 = [];
-                this.styleCols2 = [];
+          .then((resp) => {
+            import("@/services/ExportExcel").then((excel) => {
+              let dataResponse = resp.data.data;
+              let dataList = dataResponse.dataList;
+              let fileName = dataResponse.fileName;
+              const tHeader = dataResponse.titleHeaderList;
+              const filterVal = dataResponse.proList;
+              let columnList = [];
+              dataResponse.sizeColumnList.forEach((x) => {
+                let objectInput = {
+                  col: x,
+                };
+                columnList.push(objectInput);
               });
+              let charList = this.$funcData.getRoleListExcel();
+              let style = {
+                font: {bold: true},
+                fill: {fgColor: {rgb: "67C23A"}},
+                border: {
+                  top: {style: "thin"},
+                  bottom: {style: "thin"},
+                  left: {style: "thin"},
+                  right: {style: "thin"},
+                },
+              };
+              let styleColData1 = [];
+              let i = 0;
+              tHeader.forEach((x) => {
+                console.log(x);
+                styleColData1.push(charList[i] + "5");
+                i++;
+              });
+              let styleCol1 = {
+                name: styleColData1,
+                style,
+              };
+              let styleCol2 = {
+                name: ["A1", "A2", "A3", "A4"],
+                style: {font: {bold: true, color: {rgb: "black"}}},
+              };
+              this.styleCols1.push(styleCol1);
+              this.styleCols1.push(styleCol2);
+              excel
+                  .export_json_to_excel({
+                    header: tHeader,
+                    data: dataList,
+                    title: filterVal,
+                    filename: fileName,
+                    columnsWidth: columnList,
+                    styleCols1: this.styleCols1,
+                    styleCols2: this.styleCols2,
+                  })
+                  .finally(() => {
+                    this.styleCols1 = [];
+                    this.styleCols2 = [];
+                  });
+            });
+          })
+          .catch((err) => {
+            this.$message({
+              message: err.response.data.message,
+              type: "error",
+            });
+          })
+          .finally(() => {
+            setTimeout(() => {
+              this.loaddingButtonAction = false;
+            }, 1000);
           });
-        })
-        .catch((err) => {
-          this.$message({
-            message: err.response.data.message,
-            type: "error",
-          });
-        })
-        .finally(() => {
-          setTimeout(() => {
-            this.loaddingButtonAction = false;
-          }, 1000);
-        });
     },
     printOrderManyKidMethod() {
       let selectRowList = this.multipleSelection.filter((x) => x.orderKids != null);
@@ -688,18 +717,18 @@ export default {
         status: row.orderKids.view,
       };
       FnFeesService.setViewOrder(dataInput)
-        .then((resp) => {
-          this.$message({
-            message: resp.data.message,
-            type: "success",
+          .then((resp) => {
+            this.$message({
+              message: resp.data.message,
+              type: "success",
+            });
+          })
+          .catch((err) => {
+            this.$message({
+              message: err.response.data.message,
+              type: "error",
+            });
           });
-        })
-        .catch((err) => {
-          this.$message({
-            message: err.response.data.message,
-            type: "error",
-          });
-        });
     },
 
     /**
@@ -711,48 +740,48 @@ export default {
         status: row.orderKids.locked,
       };
       FnFeesService.setLockedOrder(dataInput)
-        .then((resp) => {
-          this.$message({
-            message: resp.data.message,
-            type: "success",
+          .then((resp) => {
+            this.$message({
+              message: resp.data.message,
+              type: "success",
+            });
+          })
+          .catch((err) => {
+            let messageText =
+                err.response.status == 403
+                    ? this.$permissionDenied
+                    : err.response.data.message;
+            this.$message({
+              message: messageText,
+              type: "error",
+            });
+            setTimeout(() => {
+              row.orderKids.locked = !row.orderKids.locked;
+            }, 200);
           });
-        })
-        .catch((err) => {
-          let messageText =
-            err.response.status == 403
-              ? this.$permissionDenied
-              : err.response.data.message;
-          this.$message({
-            message: messageText,
-            type: "error",
-          });
-          setTimeout(() => {
-            row.orderKids.locked = !row.orderKids.locked;
-          }, 200);
-        });
     },
     /**
      * duyệt/hủy duyệt các khoản của các học sinh
      */
     setViewOrderManyMethod(text, status) {
       let selectRowList = this.multipleSelection.filter(
-        (x) => x.orderKids != null && x.orderKids.view != status
+          (x) => x.orderKids != null && x.orderKids.view != status
       );
       let textAlert = status ? "chưa hiển thị" : "đã hiển thị";
       this.checkButtomBefore(selectRowList, "ở trạng thái " + textAlert);
       this.$confirm(
-        "Bạn có chắc chắn muốn " +
-        text +
-        " cho " +
-        selectRowList.length +
-        " học sinh không?",
-        "Thông báo!",
-        {
-          distinguishCancelAndClose: true,
-          closeOnClickModal: false,
-          confirmButtonText: "Có",
-          cancelButtonText: "Không",
-        }
+          "Bạn có chắc chắn muốn " +
+          text +
+          " cho " +
+          selectRowList.length +
+          " học sinh không?",
+          "Thông báo!",
+          {
+            distinguishCancelAndClose: true,
+            closeOnClickModal: false,
+            confirmButtonText: "Có",
+            cancelButtonText: "Không",
+          }
       ).then(() => {
         this.loadingData = true;
         let dataInput = {
@@ -760,22 +789,22 @@ export default {
           idList: selectRowList.map((x) => x.orderKids.id),
         };
         FnFeesService.setViewOrderMany(dataInput)
-          .then((resp) => {
-            this.$message({
-              message: resp.data.message,
-              type: "success",
+            .then((resp) => {
+              this.$message({
+                message: resp.data.message,
+                type: "success",
+              });
+              this.searchOrderKidsByProperties();
+            })
+            .catch((err) => {
+              this.$message({
+                message: err.response.data.message,
+                type: "error",
+              });
+            })
+            .finally(() => {
+              this.loadingData = false;
             });
-            this.searchOrderKidsByProperties();
-          })
-          .catch((err) => {
-            this.$message({
-              message: err.response.data.message,
-              type: "error",
-            });
-          })
-          .finally(() => {
-            this.loadingData = false;
-          });
       });
     },
     /**
@@ -783,23 +812,23 @@ export default {
      */
     setLockedOrderManyMethod(text, status) {
       let selectRowList = this.multipleSelection.filter(
-        (x) => x.orderKids != null && x.orderKids.locked != status
+          (x) => x.orderKids != null && x.orderKids.locked != status
       );
       let textAlert = status ? "chưa khóa" : "đã khóa";
       this.checkButtomBefore(selectRowList, "ở trạng thái " + textAlert);
       this.$confirm(
-        "Bạn có chắc chắn muốn " +
-        text +
-        " cho " +
-        selectRowList.length +
-        " học sinh không?",
-        "Thông báo!",
-        {
-          distinguishCancelAndClose: true,
-          closeOnClickModal: false,
-          confirmButtonText: "Có",
-          cancelButtonText: "Không",
-        }
+          "Bạn có chắc chắn muốn " +
+          text +
+          " cho " +
+          selectRowList.length +
+          " học sinh không?",
+          "Thông báo!",
+          {
+            distinguishCancelAndClose: true,
+            closeOnClickModal: false,
+            confirmButtonText: "Có",
+            cancelButtonText: "Không",
+          }
       ).then(() => {
         this.loadingData = true;
         let dataInput = {
@@ -807,44 +836,44 @@ export default {
           idList: selectRowList.map((x) => x.orderKids.id),
         };
         FnFeesService.setLockedOrderMany(dataInput)
-          .then((resp) => {
-            this.$message({
-              message: resp.data.message,
-              type: "success",
+            .then((resp) => {
+              this.$message({
+                message: resp.data.message,
+                type: "success",
+              });
+              this.searchOrderKidsByProperties();
+            })
+            .catch((err) => {
+              let messageText =
+                  err.response.status == 403
+                      ? this.$permissionDenied
+                      : err.response.data.message;
+              this.$message({
+                message: messageText,
+                type: "error",
+              });
+            })
+            .finally(() => {
+              this.loadingData = false;
             });
-            this.searchOrderKidsByProperties();
-          })
-          .catch((err) => {
-            let messageText =
-              err.response.status == 403
-                ? this.$permissionDenied
-                : err.response.data.message;
-            this.$message({
-              message: messageText,
-              type: "error",
-            });
-          })
-          .finally(() => {
-            this.loadingData = false;
-          });
       });
     },
     sendViewOrderManyNoSMSMethod() {
       let selectRowList = this.multipleSelection.filter(
-        (x) => x.orderKids != null && x.orderKids.view
+          (x) => x.orderKids != null && x.orderKids.view
       );
       this.checkButtomBefore(selectRowList, "ở trạng thái chưa hiển thị");
       this.$confirm(
-        "Bạn có chắc chắn muốn gửi thông báo cho " +
-        selectRowList.length +
-        " học sinh không?",
-        "Thông báo!",
-        {
-          distinguishCancelAndClose: true,
-          closeOnClickModal: false,
-          confirmButtonText: "Có",
-          cancelButtonText: "Không",
-        }
+          "Bạn có chắc chắn muốn gửi thông báo cho " +
+          selectRowList.length +
+          " học sinh không?",
+          "Thông báo!",
+          {
+            distinguishCancelAndClose: true,
+            closeOnClickModal: false,
+            confirmButtonText: "Có",
+            cancelButtonText: "Không",
+          }
       ).then(() => {
         this.loadingData = true;
         let dataInput = {
@@ -852,22 +881,22 @@ export default {
           idList: selectRowList.map((x) => x.orderKids.id),
         };
         FnFeesService.setViewOrderManyNoSMS(dataInput)
-          .then((resp) => {
-            this.$message({
-              message: resp.data.message,
-              type: "success",
+            .then((resp) => {
+              this.$message({
+                message: resp.data.message,
+                type: "success",
+              });
+              this.searchOrderKidsByProperties();
+            })
+            .catch((err) => {
+              this.$message({
+                message: err.response.data.message,
+                type: "error",
+              });
+            })
+            .finally(() => {
+              this.loadingData = false;
             });
-            this.searchOrderKidsByProperties();
-          })
-          .catch((err) => {
-            this.$message({
-              message: err.response.data.message,
-              type: "error",
-            });
-          })
-          .finally(() => {
-            this.loadingData = false;
-          });
       });
     },
     /**
@@ -881,41 +910,41 @@ export default {
           this.responseFilterList = dataLocalList.filter((x) => x.orderKids == null);
         } else if (orderStatusLocal == "orderNo") {
           this.responseFilterList = dataLocalList.filter(
-            (x) => x.orderKids != null && x.orderKids.totalNumber == 0
+              (x) => x.orderKids != null && x.orderKids.totalNumber == 0
           );
         } else if (orderStatusLocal == "completeNo") {
           this.responseFilterList = dataLocalList.filter(
-            (x) =>
-              x.orderKids != null &&
-              x.orderKids.totalNumber > 0 &&
-              x.orderKids.totalNumber != x.orderKids.enoughNumber
+              (x) =>
+                  x.orderKids != null &&
+                  x.orderKids.totalNumber > 0 &&
+                  x.orderKids.totalNumber != x.orderKids.enoughNumber
           );
         } else if (orderStatusLocal == "completeYes") {
           this.responseFilterList = dataLocalList.filter(
-            (x) =>
-              x.orderKids != null &&
-              x.orderKids.totalNumber > 0 &&
-              x.orderKids.totalNumber == x.orderKids.enoughNumber
+              (x) =>
+                  x.orderKids != null &&
+                  x.orderKids.totalNumber > 0 &&
+                  x.orderKids.totalNumber == x.orderKids.enoughNumber
           );
         } else if (orderStatusLocal == "payPart") {
           this.responseFilterList = dataLocalList.filter(
-            (x) =>
-              x.orderKids != null &&
-              x.orderKids.totalNumber > 0 &&
-              (x.orderKids.moneyPaidIn>0||x.orderKids.moneyPaidOut >0)&&
-              ((x.orderKids.moneyTotalIn - x.orderKids.moneyPaidIn)>0||(x.orderKids.moneyTotalOut - x.orderKids.moneyPaidOut)>0)
+              (x) =>
+                  x.orderKids != null &&
+                  x.orderKids.totalNumber > 0 &&
+                  (x.orderKids.moneyPaidIn > 0 || x.orderKids.moneyPaidOut > 0) &&
+                  ((x.orderKids.moneyTotalIn - x.orderKids.moneyPaidIn) > 0 || (x.orderKids.moneyTotalOut - x.orderKids.moneyPaidOut) > 0)
           );
         } else if (orderStatusLocal == "payFull") {
           this.responseFilterList = dataLocalList.filter(
-            (x) =>
-              x.orderKids != null &&
-              x.orderKids.totalNumber > 0 &&
-              (x.orderKids.moneyPaidIn==0&&x.orderKids.moneyPaidOut ==0)
+              (x) =>
+                  x.orderKids != null &&
+                  x.orderKids.totalNumber > 0 &&
+                  (x.orderKids.moneyPaidIn == 0 && x.orderKids.moneyPaidOut == 0)
           );
         } else if (orderStatusLocal == "orderInComplete") {
           this.responseFilterList = dataLocalList.filter(
-            (x) =>
-              x.inCompleteOrderNumber>0
+              (x) =>
+                  x.inCompleteOrderNumber > 0
           );
         }
         if (this.responseFilterList.length == 0) {
@@ -948,16 +977,16 @@ export default {
       let selectRowList = this.multipleSelection.filter((x) => x.orderKids == null);
       this.checkButtomBefore(selectRowList, "chưa có hóa đơn");
       this.$confirm(
-        "Bạn có chắc chắn muốn khởi tạo hóa đơn cho " +
-        selectRowList.length +
-        " học sinh không?",
-        "Khởi tạo hóa đơn tháng " + moment(this.dataSearch.date).format("MM/yyyy") + "!",
-        {
-          distinguishCancelAndClose: true,
-          closeOnClickModal: false,
-          confirmButtonText: "Có",
-          cancelButtonText: "Không",
-        }
+          "Bạn có chắc chắn muốn khởi tạo hóa đơn cho " +
+          selectRowList.length +
+          " học sinh không?",
+          "Khởi tạo hóa đơn tháng " + moment(this.dataSearch.date).format("MM/yyyy") + "!",
+          {
+            distinguishCancelAndClose: true,
+            closeOnClickModal: false,
+            confirmButtonText: "Có",
+            cancelButtonText: "Không",
+          }
       ).then(() => {
         this.loadingData = true;
         this.loaddingButtonGenerate = true;
@@ -966,23 +995,23 @@ export default {
           idKidList: selectRowList,
         };
         FnFeesService.generateOrderKids(dataInput)
-          .then((resp) => {
-            this.$message({
-              message: resp.data.message,
-              type: "success",
+            .then((resp) => {
+              this.$message({
+                message: resp.data.message,
+                type: "success",
+              });
+              this.searchOrderKidsByProperties();
+            })
+            .catch((err) => {
+              this.$message({
+                message: err.response.data.message,
+                type: "error",
+              });
+            })
+            .finally(() => {
+              this.loadingData = false;
+              this.loaddingButtonGenerate = false;
             });
-            this.searchOrderKidsByProperties();
-          })
-          .catch((err) => {
-            this.$message({
-              message: err.response.data.message,
-              type: "error",
-            });
-          })
-          .finally(() => {
-            this.loadingData = false;
-            this.loaddingButtonGenerate = false;
-          });
       });
     },
     /**
@@ -992,16 +1021,16 @@ export default {
       let selectRowList = this.multipleSelection.filter((x) => x.orderKids != null);
       this.checkButtomBefore(selectRowList, "có hóa đơn");
       this.$confirm(
-        "Bạn có chắc chắn muốn gửi thông báo học phí cho " +
-        selectRowList.length +
-        " học sinh không?",
-        "Thông báo",
-        {
-          distinguishCancelAndClose: true,
-          closeOnClickModal: false,
-          confirmButtonText: "Có",
-          cancelButtonText: "Không",
-        }
+          "Bạn có chắc chắn muốn gửi thông báo học phí cho " +
+          selectRowList.length +
+          " học sinh không?",
+          "Thông báo",
+          {
+            distinguishCancelAndClose: true,
+            closeOnClickModal: false,
+            confirmButtonText: "Có",
+            cancelButtonText: "Không",
+          }
       ).then(() => {
         this.loadingData = true;
         this.loaddingButtonNofify = true;
@@ -1010,23 +1039,23 @@ export default {
           idKidList: selectRowList,
         };
         FnFeesService.sendNotifyFees(dataInput)
-          .then((resp) => {
-            this.$message({
-              message: resp.data.message,
-              type: "success",
+            .then((resp) => {
+              this.$message({
+                message: resp.data.message,
+                type: "success",
+              });
+              this.searchOrderKidsByProperties();
+            })
+            .catch((err) => {
+              this.$message({
+                message: err.response.data.message,
+                type: "error",
+              });
+            })
+            .finally(() => {
+              this.loadingData = false;
+              this.loaddingButtonNofify = false;
             });
-            this.searchOrderKidsByProperties();
-          })
-          .catch((err) => {
-            this.$message({
-              message: err.response.data.message,
-              type: "error",
-            });
-          })
-          .finally(() => {
-            this.loadingData = false;
-            this.loaddingButtonNofify = false;
-          });
       });
     },
     /**
@@ -1040,34 +1069,34 @@ export default {
     /**
      * tìm tất cả các khối trong một trường
      */
-    async getAllGrade() {
-      await GradeService.getGradeInPrinciple()
-        .then((resp) => {
-          this.gradeOfSchoolList = resp.data.data;
-          if (this.gradeOfSchoolList.length > 0) {
-            this.dataSearch.idGrade = this.gradeOfSchoolList[0].id;
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    // async getAllGrade() {
+    //   await GradeService.getGradeInPrinciple()
+    //     .then((resp) => {
+    //       this.gradeOfSchoolList = resp.data.data;
+    //       if (this.gradeOfSchoolList.length > 0) {
+    //         this.dataSearch.idGrade = this.gradeOfSchoolList[0].id;
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
+    async getIdGrade() {
+      if (this.gradeOfSchoolList.length > 0) {
+        this.dataSearch.idGrade = this.gradeOfSchoolList[0].id;
+      }
     },
     /**
      * tìm tất cả lớp trong một khối
      */
-    async getClassInGrade() {
-      await MaClassService.getClassInGrade(this.dataSearch.idGrade)
-        .then((resp) => {
-          this.classOfGradeList = resp.data.data;
-          if (this.classOfGradeList.length > 0) {
-            this.dataSearch.idClass = this.classOfGradeList[0].id;
-          } else {
-            this.dataSearch.idClass = "";
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    async getIdClassInGrade() {
+
+      if (this.classOfGradeList.length > 0) {
+        this.dataSearch.idClass = this.classOfGradeList[0].id;
+      } else {
+        this.dataSearch.idClass = "";
+      }
+
     },
     /**
      * tìm kiếm tất cả khoản của các học sinh
@@ -1076,44 +1105,46 @@ export default {
       this.textTable = "";
       this.loadingData = true;
       FnFeesService.searchOrderKids(
-        this.dataSearch.date,
-        this.dataSearch.status,
-        this.dataSearch.idClass,
-        this.dataSearch.fullName,
-        this.dataSearch.walletStatus
+          this.dataSearch.date,
+          this.dataSearch.status,
+          this.dataSearch.idClass,
+          this.dataSearch.fullName,
+          this.dataSearch.walletStatus
       )
-        .then((resp) => {
-          this.responseDataList = resp.data.data;
-          this.responseFilterList = this.responseDataList;
-          this.classNameData = this.classOfGradeList.filter(
-            (x) => x.id == this.dataSearch.idClass
-          )[0].className;
-        })
-        .catch((err) => {
-          if (err.response.status == 403) {
-            this.$router.push("/error/forbidden");
-          } else {
-            this.$message({
-              message: err.response.data.message,
-              type: "error",
-            });
-          }
-          this.responseDataList = [];
-          this.responseFilterList = [];
-        })
-        .finally(() => {
-          if (this.responseFilterList.length == 0) {
-            this.textTable = this.$tableEmpty;
-          }
-          this.loadingData = false;
-          this.filterChangeStatusMethod();
-        });
+          .then((resp) => {
+            this.responseDataList = resp.data.data;
+            this.responseFilterList = this.responseDataList;
+            this.classNameData = this.classOfGradeList.filter(
+                (x) => x.id == this.dataSearch.idClass
+            )[0].className;
+          })
+          .catch((err) => {
+            if (err.response.status == 403) {
+              this.$router.push("/error/forbidden");
+            } else {
+              this.$message({
+                message: err.response.data.message,
+                type: "error",
+              });
+            }
+            this.responseDataList = [];
+            this.responseFilterList = [];
+          })
+          .finally(() => {
+            if (this.responseFilterList.length == 0) {
+              this.textTable = this.$tableEmpty;
+            }
+            this.loadingData = false;
+            this.filterChangeStatusMethod();
+          });
     },
 
     async fetchDataMany() {
       this.getCurrentDate();
-      await Promise.all([this.getAllGrade()]);
-      await this.getClassInGrade();
+      await this.fetchDataGradeOfSchoolList();
+      await this.getIdGrade();
+      await this.fetchDataClassOfGradeList(this.dataSearch.idGrade);
+      await this.getIdClassInGrade();
       this.searchOrderKidsByProperties();
     },
   },
@@ -1125,36 +1156,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/deep/.el-tabs__nav {
+/deep/ .el-tabs__nav {
   background: #a0a19ce0;
 }
 
-/deep/.el-tabs__item {
+/deep/ .el-tabs__item {
   color: white;
 }
 
-/deep/.el-tabs__item.is-active {
+/deep/ .el-tabs__item.is-active {
   color: white;
   background: #78a5e7;
 }
 
-/deep/.el-form-item__label {
+/deep/ .el-form-item__label {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/deep/.el-tabs__nav-scroll {
+/deep/ .el-tabs__nav-scroll {
   float: right;
 }
 
-/deep/.el-tabs__header {
+/deep/ .el-tabs__header {
   margin-bottom: 0;
 }
 
-/deep/.el-tabs--card>.el-tabs__header .el-tabs__item.is-active {
+/deep/ .el-tabs--card > .el-tabs__header .el-tabs__item.is-active {
   border-bottom-color: #78a5e7;
 }
 
-/deep/.el-tabs--card>.el-tabs__header {
+/deep/ .el-tabs--card > .el-tabs__header {
   border-bottom: none;
 }
 
@@ -1164,7 +1195,7 @@ export default {
 // /deep/.el-table th > .cell {
 //   font-size: 14px;
 // }
-/deep/.el-checkbox__inner {
+/deep/ .el-checkbox__inner {
   border: 1px solid gray;
 }
 
@@ -1174,7 +1205,7 @@ export default {
 // /deep/.el-table th {
 //   padding: 12px 0;
 // }
-/deep/.el-icon-arrow-right:before {
+/deep/ .el-icon-arrow-right:before {
   content: "";
 }
 
@@ -1229,8 +1260,8 @@ export default {
   border-bottom: 1px solid #ebeef5;
 }
 
-/deep/input::-webkit-outer-spin-button,
-/deep/input::-webkit-inner-spin-button {
+/deep/ input::-webkit-outer-spin-button,
+/deep/ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }

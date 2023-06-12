@@ -139,8 +139,6 @@
 
 <script>
 import ChartStatisticalService from "@/services/ChartStatisticalService";
-import GradeService from "@/services/GradeService";
-import MaClassService from "@/services/MaClassService";
 import TeacherService from "@/services/TeacherService";
 import ChartLine from "./chart/ChartLine.vue";
 import {mapActions, mapGetters} from "vuex";
@@ -185,16 +183,19 @@ export default {
     this.loaded = false;
     await this.fetchDataMany();
   },
+  // created() {
+  //   this.fetchDataGradeOfSchoolList();
+  // },
   computed: {
     getAppTypeUserLogin() {
       return this.$store.state.auth.user.appType;
     },
     ...mapGetters('gradeStore', ['gradeOfSchoolList']),
-    ...mapGetters('classStore', ['listClassInGrade']),
+    ...mapGetters('classStore', ['classOfGradeList']),
   },
   methods: {
     ...mapActions('gradeStore', ['fetchDataGradeOfSchoolList']),
-    ...mapActions('classStore', ['fetchDataListClassInGrade']),
+    ...mapActions('classStore', ['fetchDataClassOfGradeList']),
     fillData() {
       this.dataConllection = {
         chartData: {
@@ -267,18 +268,15 @@ export default {
     /**
      * tìm tất cả lớp trong một khối
      */
-    async getClassInGrade() {
-      await MaClassService.getClassInGrade(this.dataSearch.idGrade)
-        .then((resp) => {
-          this.classOfGradeList = resp.data.data;
-          // if (this.dataSearch.idGrade != "") {
-          //   this.dataSearch.idClass = this.classOfGradeList[0].id;
-          // }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+    // async getClassInGrade() {
+    //   await MaClassService.getClassInGrade(this.dataSearch.idGrade)
+    //     .then((resp) => {
+    //       this.classOfGradeList = resp.data.data;
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
     //get class for teacher
     async getClassListTeacher() {
       await TeacherService.getClassInTeacher()
@@ -360,10 +358,9 @@ export default {
      * get data initial
      */
     async fetchDataMany() {
-      if (this.getAppTypeUserLogin == "plus") {
-        // await Promise.all([this.getAllGrade()]);
-        await this.getClassInGrade();
-      } else if (this.getAppTypeUserLogin == "teacher") {
+      if (this.getAppTypeUserLogin === "plus") {
+        await this.fetchDataClassOfGradeList(this.dataSearch.idGrade);
+      } else if (this.getAppTypeUserLogin === "teacher") {
         await Promise.all([this.getClassListTeacher()]);
       }
       this.searchByProperties();

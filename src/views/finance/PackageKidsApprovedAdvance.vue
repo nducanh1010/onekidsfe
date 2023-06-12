@@ -2,78 +2,78 @@
   <div>
     <div style="margin-top: 5px">
       <div
-        style="margin-bottom: 20px; position: relative; z-index: 1; display: inline-block"
+          style="margin-bottom: 20px; position: relative; z-index: 1; display: inline-block"
       >
         <el-date-picker
-          style="width: 115px"
-          class="input-common"
-          :clearable="false"
-          @change="searchKidsPackageByProperties()"
-          v-model="dataSearch.date"
-          type="month"
-          value-format="yyyy-MM-dd"
-          format="MM-yyyy"
+            style="width: 115px"
+            class="input-common"
+            :clearable="false"
+            @change="searchKidsPackageByProperties()"
+            v-model="dataSearch.date"
+            type="month"
+            value-format="yyyy-MM-dd"
+            format="MM-yyyy"
         >
         </el-date-picker>
         <!-- chọn trạng thái -->
         <el-select
-          style="width: 140px"
-          class="input-common"
-          v-model="dataSearch.status"
-          @change="searchKidsPackageByProperties()"
-          placeholder="Trạng thái"
+            style="width: 140px"
+            class="input-common"
+            v-model="dataSearch.status"
+            @change="searchKidsPackageByProperties()"
+            placeholder="Trạng thái"
         >
           <el-option
-            v-for="item in kidStatusList"
-            :key="item.key"
-            :value="item.key"
-            :label="item.value"
+              v-for="item in kidStatusList"
+              :key="item.key"
+              :value="item.key"
+              :label="item.value"
           ></el-option>
         </el-select>
 
         <!-- chọn khối -->
         <el-select
-          class="input-common input-grade"
-          style="width: 140px"
-          v-model="dataSearch.idGrade"
-          @change="changeGradeSearch()"
-          placeholder="Chọn khối"
+            class="input-common input-grade"
+            style="width: 140px"
+            v-model="dataSearch.idGrade"
+            @change="changeGradeSearch()"
+            placeholder="Chọn khối"
         >
           <el-option
-            v-for="item in gradeOfSchoolList"
-            :key="item.id"
-            :value="item.id"
-            :label="item.gradeName"
+              v-for="item in gradeOfSchoolList"
+              :key="item.id"
+              :value="item.id"
+              :label="item.gradeName"
           ></el-option>
         </el-select>
 
         <!-- chọn lớp -->
         <el-select
-          class="input-common input-class"
-          style="width: 140px"
-          v-model="dataSearch.idClass"
-          placeholder="Chọn lớp"
-          @change="searchKidsPackageByProperties()"
+            class="input-common input-class"
+            style="width: 140px"
+            v-model="dataSearch.idClass"
+            placeholder="Chọn lớp"
+            @change="searchKidsPackageByProperties()"
         >
           <el-option
-            v-for="item in classOfGradeList"
-            :key="item.id"
-            :value="item.id"
-            :label="item.className"
+              v-for="item in classOfGradeList"
+              :key="item.id"
+              :value="item.id"
+              :label="item.className"
           ></el-option>
         </el-select>
         <el-input
-          style="width: 220px"
-          placeholder="Nhập tên học sinh"
-          clearable
-          v-model="dataSearch.fullName"
-          @clear="searchKidsPackageByProperties()"
-          @keyup.enter.native="searchKidsPackageByProperties()"
+            style="width: 220px"
+            placeholder="Nhập tên học sinh"
+            clearable
+            v-model="dataSearch.fullName"
+            @clear="searchKidsPackageByProperties()"
+            @keyup.enter.native="searchKidsPackageByProperties()"
         >
           <el-button
-            slot="append"
-            icon="el-icon-search"
-            @click="searchKidsPackageByProperties()"
+              slot="append"
+              icon="el-icon-search"
+              @click="searchKidsPackageByProperties()"
           ></el-button>
         </el-input>
       </div>
@@ -105,78 +105,79 @@
       <div class="table-content row-data">
         <!-- chi tiết khoản các học sinh -->
         <el-table
-          ref="kidsPackageForKidsRef"
-          :data="responseDataList"
-          :empty-text="textTable"
-          v-loading="loadingData"
-          :element-loading-text="$tableLoadding"
-          element-loading-spinner="el-icon-loading"
-          element-loading-background="rgba(255,255,255, 0)"
-          :cell-style="tableRowStyle"
-          :header-cell-style="tableHeaderColor"
-          @selection-change="handleSelectionChange"
-          :max-height="$tableMaxHeight"
-          border
+            ref="kidsPackageForKidsRef"
+            :data="responseDataList"
+            :empty-text="textTable"
+            v-loading="loadingData"
+            :element-loading-text="$tableLoadding"
+            element-loading-spinner="el-icon-loading"
+            element-loading-background="rgba(255,255,255, 0)"
+            :cell-style="tableRowStyle"
+            :header-cell-style="tableHeaderColor"
+            @selection-change="handleSelectionChange"
+            :max-height="$tableMaxHeight"
+            border
         >
           <el-table-column type="expand" width="1">
             <template slot-scope="scope">
               <div style="margin: 0 15px 10px 15px">
                 <el-table
-                  ref="kidsPackageForKidsRef1"
-                  :data="scope.row.fnKidsPackageList"
-                  :empty-text="textTable"
-                  v-loading="loadingDataChildren"
-                  :element-loading-text="$tableLoadding"
-                  element-loading-spinner="el-icon-loading"
-                  element-loading-background="rgba(255,255,255, 0)"
-                  highlight-current-row
-                  :cell-style="tableRowStyleChildren"
-                  :header-cell-style="tableHeaderChidrenColor"
-                  @selection-change="handleSelectionChange"
-                  :max-height="$tableMaxHeightSmall"
-                  border
+                    ref="kidsPackageForKidsRef1"
+                    :data="scope.row.fnKidsPackageList"
+                    :empty-text="textTable"
+                    v-loading="loadingDataChildren"
+                    :element-loading-text="$tableLoadding"
+                    element-loading-spinner="el-icon-loading"
+                    element-loading-background="rgba(255,255,255, 0)"
+                    highlight-current-row
+                    :cell-style="tableRowStyleChildren"
+                    :header-cell-style="tableHeaderChidrenColor"
+                    @selection-change="handleSelectionChange"
+                    :max-height="$tableMaxHeightSmall"
+                    border
                 >
                   <el-table-column
-                    fixed
-                    type="index"
-                    label="STT"
-                    width="50"
-                    align="center"
+                      fixed
+                      type="index"
+                      label="STT"
+                      width="50"
+                      align="center"
                   ></el-table-column>
                   <el-table-column
-                    fixed
-                    label="Tên khoản"
-                    prop="fnPackage.name"
-                    min-width="150"
+                      fixed
+                      label="Tên khoản"
+                      prop="fnPackage.name"
+                      min-width="150"
                   ></el-table-column>
                   <el-table-column fixed label="Trạng thái" align="center" width="95">
                     <template slot-scope="scope">
                       <span v-if="scope.row.paid == 0">Chưa đóng</span>
                       <span v-else-if="scope.row.paid < scope.row.money">Thiếu</span>
                       <span v-else>Đủ</span>
-                    </template></el-table-column
+                    </template>
+                  </el-table-column
                   >
                   <el-table-column label="Kiểu đóng" align="center" width="90">
                     <template slot-scope="scope">
                       <span v-if="scope.row.fnPackage.type == 'single'">Một lần</span>
                       <span v-else-if="scope.row.fnPackage.type == 'multiple'"
-                        >Nhiều lần</span
+                      >Nhiều lần</span
                       >
                     </template>
                   </el-table-column>
                   <el-table-column label="Khoản đính kèm" align="center" width="125">
                     <template
-                      v-if="scope.row.fnPackageKidsExtend != null"
-                      slot-scope="scope"
+                        v-if="scope.row.fnPackageKidsExtend != null"
+                        slot-scope="scope"
                     >
                       <el-tooltip
-                        effect="dark"
-                        :content="'Khoản đính kèm: ' + scope.row.fnPackageKidsExtend.name"
-                        placement="top"
+                          effect="dark"
+                          :content="'Khoản đính kèm: ' + scope.row.fnPackageKidsExtend.name"
+                          placement="top"
                       >
                         <i
-                          class="el-icon-circle-check"
-                          :style="
+                            class="el-icon-circle-check"
+                            :style="
                             scope.row.fnPackageKidsExtend.active
                               ? 'margin-left: 10px; color: #409eff'
                               : 'margin-left: 10px; color: red'
@@ -192,10 +193,10 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="number"
-                    align="center"
-                    label="Số lượng"
-                    width="80"
+                      prop="number"
+                      align="center"
+                      label="Số lượng"
+                      width="80"
                   ></el-table-column>
                   <el-table-column align="right" label="Đơn giá" width="120">
                     <template slot-scope="scope">
@@ -203,10 +204,10 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="discount"
-                    align="center"
-                    label="Giảm giá"
-                    width="80"
+                      prop="discount"
+                      align="center"
+                      label="Giảm giá"
+                      width="80"
                   >
                     <template slot-scope="scope">
                       <span v-if="scope.row.discount">Có</span>
@@ -214,10 +215,10 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="discountPrice"
-                    align="right"
-                    label="Đơn giá sau giảm"
-                    width="120"
+                      prop="discountPrice"
+                      align="right"
+                      label="Đơn giá sau giảm"
+                      width="120"
                   >
                     <template slot-scope="scope">
                       <span v-if="scope.row.discount">
@@ -235,21 +236,22 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="calculateNumber"
-                    align="center"
-                    label="Số dự toán"
-                    width="90"
+                      prop="calculateNumber"
+                      align="center"
+                      label="Số dự toán"
+                      width="90"
                   ></el-table-column>
                   <el-table-column label="Tiền dự toán" align="right" width="110">
                     <template slot-scope="scope">
                       <span>{{ scope.row.moneyTemp | formatCurrencyNew }}</span>
-                    </template></el-table-column
+                    </template>
+                  </el-table-column
                   >
                   <el-table-column
-                    prop="usedNumber"
-                    align="center"
-                    label="Số sử dụng"
-                    width="100"
+                      prop="usedNumber"
+                      align="center"
+                      label="Số sử dụng"
+                      width="100"
                   >
                     <template slot-scope="scope">
                       <span>{{ scope.row.usedNumber }}</span>
@@ -259,27 +261,27 @@
                     <template slot-scope="scope">
                       <span>{{ scope.row.money | formatCurrencyNew }}</span>
                       <el-tooltip
-                        v-if="
+                          v-if="
                           scope.row.fnPackageKidsExtend != null &&
                           scope.row.fnPackageKidsExtend.active
                         "
-                        effect="dark"
-                        :content="
+                          effect="dark"
+                          :content="
                           scope.row.moneyExtend > 0
                             ? 'Số tiền tăng: ' + scope.row.moneyExtend + ' đ'
                             : 'Số tiền giảm: ' + scope.row.moneyExtend + ' đ'
                         "
-                        placement="top"
+                          placement="top"
                       >
                         <i
-                          v-if="scope.row.moneyExtend > 0"
-                          class="el-icon-top"
-                          style="color: #409eff; font-size: 18px"
+                            v-if="scope.row.moneyExtend > 0"
+                            class="el-icon-top"
+                            style="color: #409eff; font-size: 18px"
                         />
                         <i
-                          v-else-if="scope.row.moneyExtend < 0"
-                          class="el-icon-bottom"
-                          style="color: #f56c6c; font-size: 18px"
+                            v-else-if="scope.row.moneyExtend < 0"
+                            class="el-icon-bottom"
+                            style="color: #f56c6c; font-size: 18px"
                         />
                       </el-tooltip>
                     </template>
@@ -287,44 +289,46 @@
                   <el-table-column label="Tiền đã trả" align="right" width="110">
                     <template slot-scope="scope">
                       <span>{{ scope.row.paid | formatCurrencyNew }}</span>
-                    </template></el-table-column
+                    </template>
+                  </el-table-column
                   >
 
                   <el-table-column
-                    prop="description"
-                    label="Mô tả"
-                    min-width="200"
+                      prop="description"
+                      label="Mô tả"
+                      min-width="200"
                   ></el-table-column>
 
                   <el-table-column fixed="right" width="65" align="center" label="Duyệt">
                     <template slot-scope="scope">
                       <el-checkbox
-                        :disabled="!scope.row.approved"
-                        v-model="scope.row.approved"
-                        @change="approvedKidsPackageOneMethod(scope.row)"
+                          :disabled="!scope.row.approved"
+                          v-model="scope.row.approved"
+                          @change="approvedKidsPackageOneMethod(scope.row)"
                       ></el-checkbox>
                     </template>
                   </el-table-column>
                   <el-table-column fixed="right" width="65" align="center" label="Khóa">
                     <template slot-scope="scope">
                       <el-checkbox
-                        disabled="true"
-                        v-model="scope.row.locked"
+                          disabled="true"
+                          v-model="scope.row.locked"
                       ></el-checkbox>
                     </template>
                   </el-table-column>
                   <el-table-column
-                    label="Tác vụ"
-                    fixed="right"
-                    width="170"
-                    align="center"
+                      label="Tác vụ"
+                      fixed="right"
+                      width="170"
+                      align="center"
                   >
                     <template slot-scope="scope">
                       <el-button
-                        type="danger"
-                        size="mini"
-                        @click="deleteKidPackageRow(scope.row)"
-                        >Xóa</el-button
+                          type="danger"
+                          size="mini"
+                          @click="deleteKidPackageRow(scope.row)"
+                      >Xóa
+                      </el-button
                       >
                       <!-- <span v-else>
                         <el-button
@@ -375,35 +379,37 @@
           </el-table-column>
           <el-table-column type="selection" align="center" width="55"></el-table-column>
           <el-table-column
-            type="index"
-            label="STT"
-            width="50"
-            align="center"
+              type="index"
+              label="STT"
+              width="50"
+              align="center"
           ></el-table-column>
           <el-table-column
-            min-width="145"
-            prop="fullName"
-            label="Họ tên"
+              min-width="145"
+              prop="fullName"
+              label="Họ tên"
           ></el-table-column>
 
           <el-table-column label="Ngày sinh" min-width="110" align="center">
             <template slot-scope="scope">
               <span>{{ scope.row.birthDay | formatDate }}</span>
-            </template></el-table-column
+            </template>
+          </el-table-column
           >
           <el-table-column align="right" min-width="115" label="Còn lại thu">
             <template slot-scope="scope">
               <span class="high-light">{{
-                scope.row.totalMoneyRemainIn | formatCurrencyNew
-              }}</span>
+                  scope.row.totalMoneyRemainIn | formatCurrencyNew
+                }}</span>
             </template>
           </el-table-column>
           <el-table-column align="right" min-width="115" label="Còn lại chi">
             <template slot-scope="scope">
               <span class="high-light">{{
-                scope.row.totalMoneyRemainOut | formatCurrencyNew
-              }}</span>
-            </template></el-table-column
+                  scope.row.totalMoneyRemainOut | formatCurrencyNew
+                }}</span>
+            </template>
+          </el-table-column
           >
           <el-table-column align="right" min-width="115" label="Dự toán thu">
             <template slot-scope="scope">
@@ -413,19 +419,20 @@
           <el-table-column align="right" min-width="115" label="Dự toán chi">
             <template slot-scope="scope">
               <span>{{ scope.row.totalMoneyOut | formatCurrencyNew }}</span>
-            </template></el-table-column
+            </template>
+          </el-table-column
           >
           <el-table-column
-            align="center"
-            prop="approvedNumber"
-            width="80"
-            label="Đã duyệt"
+              align="center"
+              prop="approvedNumber"
+              width="80"
+              label="Đã duyệt"
           ></el-table-column>
           <el-table-column
-            align="center"
-            prop="lockedNumber"
-            width="80"
-            label="Đã khóa"
+              align="center"
+              prop="lockedNumber"
+              width="80"
+              label="Đã khóa"
           ></el-table-column>
           <el-table-column label="Tác vụ" width="120" align="center">
             <template slot-scope="scope">
@@ -443,18 +450,18 @@
                   >Thêm</el-button
                 > -->
                 <el-button
-                  v-if="scope.row.expandRow"
-                  size="mini"
-                  type="success"
-                  @click="toogleExpandDetailDate(scope.row)"
-                  ><i class="el-icon-remove-outline"></i
+                    v-if="scope.row.expandRow"
+                    size="mini"
+                    type="success"
+                    @click="toogleExpandDetailDate(scope.row)"
+                ><i class="el-icon-remove-outline"></i
                 ></el-button>
                 <el-button
-                  v-else
-                  type="success"
-                  size="mini"
-                  @click="toogleExpandDetailDate(scope.row)"
-                  ><i class="el-icon-circle-plus"></i
+                    v-else
+                    type="success"
+                    size="mini"
+                    @click="toogleExpandDetailDate(scope.row)"
+                ><i class="el-icon-circle-plus"></i
                 ></el-button>
               </span>
             </template>
@@ -517,19 +524,19 @@
       </div> -->
     </div>
     <PackageKidsApprovedRapid
-      :dialogVisible="showApprovedRapid"
-      @dialog-close="closeApprovedRapidDialog()"
-      ref="PackageKidsApprovedRapid"
+        :dialogVisible="showApprovedRapid"
+        @dialog-close="closeApprovedRapidDialog()"
+        ref="PackageKidsApprovedRapid"
     />
     <PackageKidsApprovedKidDialog
-      :dialogVisible="showDetialApprovedDialog"
-      @dialog-close="closeDetialApprovedDialog()"
-      ref="PackageKidsApprovedKidDialog"
+        :dialogVisible="showDetialApprovedDialog"
+        @dialog-close="closeDetialApprovedDialog()"
+        ref="PackageKidsApprovedKidDialog"
     />
     <PackageKidsAddDialog
-      :dialogVisible="showAddPackageKids"
-      @dialog-close="dialogCloseAddPackageKidsMethod()"
-      ref="PackageKidsAddDialog"
+        :dialogVisible="showAddPackageKids"
+        @dialog-close="dialogCloseAddPackageKidsMethod()"
+        ref="PackageKidsAddDialog"
     />
   </div>
 </template>
@@ -539,16 +546,17 @@ import FnFeesService from "@/services/FnFeesService";
 import checkPermission from "@/utils/permission.js";
 
 import moment from "moment";
-import GradeService from "@/services/GradeService";
 import MaClassService from "@/services/MaClassService";
 import PackageKidsApprovedRapid from "./PackageKidsApprovedRapid.vue";
 import PackageKidsApprovedKidDialog from "./PackageKidsApprovedKidDialog.vue";
 import PackageKidsAddDialog from "./PackageKidsAddDialog.vue";
+import {mapActions, mapGetters} from "vuex";
+
 const valkidStatusList = [
-  { key: "STUDYING", value: "Đang học" },
-  { key: "STUDY_WAIT", value: "Chờ học" },
-  { key: "RESERVE", value: "Bảo lưu" },
-  { key: "LEAVE_SCHOOL", value: "Nghỉ học" },
+  {key: "STUDYING", value: "Đang học"},
+  {key: "STUDY_WAIT", value: "Chờ học"},
+  {key: "RESERVE", value: "Bảo lưu"},
+  {key: "LEAVE_SCHOOL", value: "Nghỉ học"},
 ];
 export default {
   components: {
@@ -574,7 +582,7 @@ export default {
       loaddingButton: false,
       showApprovedRapid: false,
       showAddPackageKids: false,
-      gradeOfSchoolList: [],
+      // gradeOfSchoolList: [],
       classOfGradeList: [],
       kidStatusList: valkidStatusList,
       nowDate: "",
@@ -586,7 +594,17 @@ export default {
       },
     };
   },
+  created() {
+    this.fetchDataGradeOfSchoolList();
+  },
+  computed: {
+    ...mapGetters('gradeStore', ['gradeOfSchoolList']),
+    ...mapGetters('classStore', ['listClassInGrade']),
+  },
   methods: {
+    ...mapActions('gradeStore', ['fetchDataGradeOfSchoolList']),
+    ...mapActions('classStore', ['fetchDataListClassInGrade']),
+
     checkPermission,
     tableHeaderColor() {
       return "background-color: #78a5e7;color: #fff;font-weight: bold;";
@@ -594,17 +612,26 @@ export default {
     tableHeaderChidrenColor() {
       return "background-color: #c0c4cc;color: #606266;";
     },
-    tableRowStyle({ row }) {
+    tableRowStyle({row}) {
       if (row.expandRow) {
         return "font-weight: bold";
       }
     },
-    tableRowStyleChildren({ row }) {
+    tableRowStyleChildren({row}) {
       if (row.paid == 0) {
         return "color: #F14950";
       } else if (row.paid < row.money) {
         return "color: green";
       }
+    },
+    /**
+     * tìm tất cả các khối trong một trường
+     */
+    getIdClass() {
+      if (this.gradeOfSchoolList.length>0) {
+        this.dataSearch.idClass = this.gradeOfSchoolList[0].id;
+      }
+      console.log('list',this.gradeOfSchoolList)
     },
     dialogCloseCreateMethod() {
       this.showCreateDialog = false;
@@ -630,12 +657,12 @@ export default {
       let idKidList = this.multipleSelection.map((x) => x.id);
       this.showApprovedRapid = true;
       let className = this.classOfGradeList.filter(
-        (x) => x.id == this.dataSearch.idClass
+          (x) => x.id == this.dataSearch.idClass
       )[0].className;
       this.$refs.PackageKidsApprovedRapid.getApprovedRapidInitial(
-        this.dataSearch,
-        className,
-        idKidList
+          this.dataSearch,
+          className,
+          idKidList
       );
     },
     handleCommandMethod(command) {
@@ -660,44 +687,44 @@ export default {
     detialApprovedKidsMethod(row) {
       this.showDetialApprovedDialog = true;
       this.$refs.PackageKidsApprovedKidDialog.getApprovedDetailInitial(
-        row.id,
-        this.dataSearch.date,
-        row.fullName
+          row.id,
+          this.dataSearch.date,
+          row.fullName
       );
     },
     addPackageKidsMethod(row) {
       this.showAddPackageKids = true;
       this.$refs.PackageKidsAddDialog.getDataInitialAddPackageKids(
-        row.id,
-        this.dataSearch.date
+          row.id,
+          this.dataSearch.date
       );
     },
     deleteKidPackageRow(row) {
       let text = row.paid > 0 ? "ĐÃ THANH TOÁN" : "";
       this.$confirm(
-        "Bạn có chắc chắn muốn xóa khoản " + text + " này không?",
-        "Thông báo!",
-        {
-          distinguishCancelAndClose: true,
-          closeOnClickModal: false,
-          confirmButtonText: "Có",
-          cancelButtonText: "Không",
-        }
+          "Bạn có chắc chắn muốn xóa khoản " + text + " này không?",
+          "Thông báo!",
+          {
+            distinguishCancelAndClose: true,
+            closeOnClickModal: false,
+            confirmButtonText: "Có",
+            cancelButtonText: "Không",
+          }
       ).then(() => {
         FnFeesService.deleteKidsPackageAdvance(row.id)
-          .then((resp) => {
-            this.$message({
-              message: resp.data.message,
-              type: "success",
+            .then((resp) => {
+              this.$message({
+                message: resp.data.message,
+                type: "success",
+              });
+              this.searchKidsPackageByProperties();
+            })
+            .catch((err) => {
+              this.$message({
+                message: err.response.data.message,
+                type: "error",
+              });
             });
-            this.searchKidsPackageByProperties();
-          })
-          .catch((err) => {
-            this.$message({
-              message: err.response.data.message,
-              type: "error",
-            });
-          });
       });
     },
     /**
@@ -706,61 +733,61 @@ export default {
     approvedKidsPackageOneMethod(row) {
       let text = row.paid > 0 ? "ĐÃ THANH TOÁN" : "";
       this.$confirm(
-        "Bạn có chắc chắn muốn bỏ duyệt khoản " + text + " này không?",
-        "Thông báo!",
-        {
-          distinguishCancelAndClose: true,
-          closeOnClickModal: false,
-          confirmButtonText: "Có",
-          cancelButtonText: "Không",
-        }
+          "Bạn có chắc chắn muốn bỏ duyệt khoản " + text + " này không?",
+          "Thông báo!",
+          {
+            distinguishCancelAndClose: true,
+            closeOnClickModal: false,
+            confirmButtonText: "Có",
+            cancelButtonText: "Không",
+          }
       )
-        .then(() => {
-          FnFeesService.approvedKidsPackageAdvance(row.id)
-            .then((resp) => {
-              this.$message({
-                message: resp.data.message,
-                type: "success",
-              });
-            })
-            .catch((err) => {
-              this.$message({
-                message: err.response.data.message,
-                type: "error",
-              });
-              setTimeout(() => {
-                row.approved = !row.approved;
-              }, 100);
-            });
-        })
-        .catch(() => {
-          row.approved = !row.approved;
-        });
+          .then(() => {
+            FnFeesService.approvedKidsPackageAdvance(row.id)
+                .then((resp) => {
+                  this.$message({
+                    message: resp.data.message,
+                    type: "success",
+                  });
+                })
+                .catch((err) => {
+                  this.$message({
+                    message: err.response.data.message,
+                    type: "error",
+                  });
+                  setTimeout(() => {
+                    row.approved = !row.approved;
+                  }, 100);
+                });
+          })
+          .catch(() => {
+            row.approved = !row.approved;
+          });
     },
     /**
      * duyệt/bỏ khóa 1 khoản
      */
     lockedKidsPackageMethod(row) {
       FnFeesService.lockedKidsPackage(row)
-        .then((resp) => {
-          this.$message({
-            message: resp.data.message,
-            type: "success",
+          .then((resp) => {
+            this.$message({
+              message: resp.data.message,
+              type: "success",
+            });
+          })
+          .catch((err) => {
+            let messageText =
+                err.response.status == 403
+                    ? this.$permissionDenied
+                    : err.response.data.message;
+            this.$message({
+              message: messageText,
+              type: "error",
+            });
+            setTimeout(() => {
+              row.locked = !row.locked;
+            }, 100);
           });
-        })
-        .catch((err) => {
-          let messageText =
-            err.response.status == 403
-              ? this.$permissionDenied
-              : err.response.data.message;
-          this.$message({
-            message: messageText,
-            type: "error",
-          });
-          setTimeout(() => {
-            row.locked = !row.locked;
-          }, 100);
-        });
     },
     checkBeforeSelectData() {
       let selectRowList = this.multipleSelection;
@@ -779,18 +806,18 @@ export default {
       this.checkBeforeSelectData();
       let selectRowList = this.multipleSelection;
       this.$confirm(
-        "Bạn có chắc chắn muốn " +
+          "Bạn có chắc chắn muốn " +
           text +
           " cho " +
           selectRowList.length +
           " học sinh không?",
-        "Thông báo!",
-        {
-          distinguishCancelAndClose: true,
-          closeOnClickModal: false,
-          confirmButtonText: "Có",
-          cancelButtonText: "Không",
-        }
+          "Thông báo!",
+          {
+            distinguishCancelAndClose: true,
+            closeOnClickModal: false,
+            confirmButtonText: "Có",
+            cancelButtonText: "Không",
+          }
       ).then(() => {
         this.loadingData = true;
         let dataInput = {
@@ -798,26 +825,26 @@ export default {
           kidsList: selectRowList,
         };
         FnFeesService.approvedKidsPackageMany(dataInput)
-          .then((resp) => {
-            this.$message({
-              message: resp.data.message,
-              type: "success",
+            .then((resp) => {
+              this.$message({
+                message: resp.data.message,
+                type: "success",
+              });
+              this.searchKidsPackageByProperties();
+            })
+            .catch((err) => {
+              let messageText =
+                  err.response.status == 403
+                      ? this.$permissionDenied
+                      : err.response.data.message;
+              this.$message({
+                message: messageText,
+                type: "error",
+              });
+            })
+            .finally(() => {
+              this.loadingData = false;
             });
-            this.searchKidsPackageByProperties();
-          })
-          .catch((err) => {
-            let messageText =
-              err.response.status == 403
-                ? this.$permissionDenied
-                : err.response.data.message;
-            this.$message({
-              message: messageText,
-              type: "error",
-            });
-          })
-          .finally(() => {
-            this.loadingData = false;
-          });
       });
     },
     /**
@@ -827,18 +854,18 @@ export default {
       this.checkBeforeSelectData();
       let selectRowList = this.multipleSelection;
       this.$confirm(
-        "Bạn có chắc chắn muốn " +
+          "Bạn có chắc chắn muốn " +
           text +
           " cho " +
           selectRowList.length +
           " học sinh không?",
-        "Thông báo!",
-        {
-          distinguishCancelAndClose: true,
-          closeOnClickModal: false,
-          confirmButtonText: "Có",
-          cancelButtonText: "Không",
-        }
+          "Thông báo!",
+          {
+            distinguishCancelAndClose: true,
+            closeOnClickModal: false,
+            confirmButtonText: "Có",
+            cancelButtonText: "Không",
+          }
       ).then(() => {
         this.loadingData = true;
         let dataInput = {
@@ -846,26 +873,26 @@ export default {
           kidsList: selectRowList,
         };
         FnFeesService.lockvedKidsPackageMany(dataInput)
-          .then((resp) => {
-            this.$message({
-              message: resp.data.message,
-              type: "success",
+            .then((resp) => {
+              this.$message({
+                message: resp.data.message,
+                type: "success",
+              });
+              this.searchKidsPackageByProperties();
+            })
+            .catch((err) => {
+              let messageText =
+                  err.response.status == 403
+                      ? this.$permissionDenied
+                      : err.response.data.message;
+              this.$message({
+                message: messageText,
+                type: "error",
+              });
+            })
+            .finally(() => {
+              this.loadingData = false;
             });
-            this.searchKidsPackageByProperties();
-          })
-          .catch((err) => {
-            let messageText =
-              err.response.status == 403
-                ? this.$permissionDenied
-                : err.response.data.message;
-            this.$message({
-              message: messageText,
-              type: "error",
-            });
-          })
-          .finally(() => {
-            this.loadingData = false;
-          });
       });
     },
 
@@ -874,27 +901,27 @@ export default {
      */
     transferNumberOneMethod(row) {
       FnFeesService.transferNumberOne(row)
-        .then((resp) => {
-          this.$message({
-            message: resp.data.message,
-            type: "success",
+          .then((resp) => {
+            this.$message({
+              message: resp.data.message,
+              type: "success",
+            });
+            row.showNumber = row.calculateNumber;
+            row.usedNumber = row.calculateNumber;
+            if (row.usedNumber > 0) {
+              row.approved = true;
+            }
+          })
+          .catch((err) => {
+            let messageText =
+                err.response.status == 403
+                    ? this.$permissionDenied
+                    : err.response.data.message;
+            this.$message({
+              message: messageText,
+              type: "error",
+            });
           });
-          row.showNumber = row.calculateNumber;
-          row.usedNumber = row.calculateNumber;
-          if (row.usedNumber > 0) {
-            row.approved = true;
-          }
-        })
-        .catch((err) => {
-          let messageText =
-            err.response.status == 403
-              ? this.$permissionDenied
-              : err.response.data.message;
-          this.$message({
-            message: messageText,
-            type: "error",
-          });
-        });
     },
     /**
      * chuyển đổi số lượng tính toán sang số lượng sử dụng cho nhiều học sinh
@@ -903,41 +930,41 @@ export default {
       this.checkBeforeSelectData();
       let selectRowList = this.multipleSelection;
       this.$confirm(
-        "Bạn có chắc chắn muốn sử dụng số dự toán cho " +
+          "Bạn có chắc chắn muốn sử dụng số dự toán cho " +
           selectRowList.length +
           " học sinh không?",
-        "Thông báo!",
-        {
-          distinguishCancelAndClose: true,
-          closeOnClickModal: false,
-          confirmButtonText: "Có",
-          cancelButtonText: "Không",
-        }
+          "Thông báo!",
+          {
+            distinguishCancelAndClose: true,
+            closeOnClickModal: false,
+            confirmButtonText: "Có",
+            cancelButtonText: "Không",
+          }
       ).then(() => {
         this.loaddingButtonTranferNumber = true;
         FnFeesService.transferNumberMany(selectRowList)
-          .then((resp) => {
-            this.$message({
-              message: resp.data.message,
-              type: "success",
+            .then((resp) => {
+              this.$message({
+                message: resp.data.message,
+                type: "success",
+              });
+              this.searchKidsPackageByProperties();
+            })
+            .catch((err) => {
+              let messageText =
+                  err.response.status == 403
+                      ? this.$permissionDenied
+                      : err.response.data.message;
+              this.$message({
+                message: messageText,
+                type: "error",
+              });
+            })
+            .finally(() => {
+              setTimeout(() => {
+                this.loaddingButtonTranferNumber = false;
+              }, 500);
             });
-            this.searchKidsPackageByProperties();
-          })
-          .catch((err) => {
-            let messageText =
-              err.response.status == 403
-                ? this.$permissionDenied
-                : err.response.data.message;
-            this.$message({
-              message: messageText,
-              type: "error",
-            });
-          })
-          .finally(() => {
-            setTimeout(() => {
-              this.loaddingButtonTranferNumber = false;
-            }, 500);
-          });
       });
     },
     /**
@@ -945,26 +972,26 @@ export default {
      */
     saveUsedNumberOneMethod(row) {
       FnFeesService.usedNumberKidsPackage(row)
-        .then((resp) => {
-          this.$message({
-            message: resp.data.message,
-            type: "success",
+          .then((resp) => {
+            this.$message({
+              message: resp.data.message,
+              type: "success",
+            });
+            row.showNumber = row.usedNumber;
+            if (row.usedNumber > 0) {
+              row.approved = true;
+            }
+          })
+          .catch((err) => {
+            let messageText =
+                err.response.status == 403
+                    ? this.$permissionDenied
+                    : err.response.data.message;
+            this.$message({
+              message: messageText,
+              type: "error",
+            });
           });
-          row.showNumber = row.usedNumber;
-          if (row.usedNumber > 0) {
-            row.approved = true;
-          }
-        })
-        .catch((err) => {
-          let messageText =
-            err.response.status == 403
-              ? this.$permissionDenied
-              : err.response.data.message;
-          this.$message({
-            message: messageText,
-            type: "error",
-          });
-        });
     },
     /**
      * lưu số
@@ -973,41 +1000,41 @@ export default {
       this.checkBeforeSelectData();
       let selectRowList = this.multipleSelection;
       this.$confirm(
-        "Bạn có chắc chắn lưu các số sử dụng đã nhập cho " +
+          "Bạn có chắc chắn lưu các số sử dụng đã nhập cho " +
           selectRowList.length +
           " học sinh không?",
-        "Thông báo!",
-        {
-          distinguishCancelAndClose: true,
-          closeOnClickModal: false,
-          confirmButtonText: "Có",
-          cancelButtonText: "Không",
-        }
+          "Thông báo!",
+          {
+            distinguishCancelAndClose: true,
+            closeOnClickModal: false,
+            confirmButtonText: "Có",
+            cancelButtonText: "Không",
+          }
       ).then(() => {
         this.loaddingButtonSaveNumber = true;
         FnFeesService.usedNumberKidsPackageMany(selectRowList)
-          .then((resp) => {
-            this.$message({
-              message: resp.data.message,
-              type: "success",
+            .then((resp) => {
+              this.$message({
+                message: resp.data.message,
+                type: "success",
+              });
+              this.searchKidsPackageByProperties();
+            })
+            .catch((err) => {
+              let messageText =
+                  err.response.status == 403
+                      ? this.$permissionDenied
+                      : err.response.data.message;
+              this.$message({
+                message: messageText,
+                type: "error",
+              });
+            })
+            .finally(() => {
+              setTimeout(() => {
+                this.loaddingButtonSaveNumber = false;
+              }, 500);
             });
-            this.searchKidsPackageByProperties();
-          })
-          .catch((err) => {
-            let messageText =
-              err.response.status == 403
-                ? this.$permissionDenied
-                : err.response.data.message;
-            this.$message({
-              message: messageText,
-              type: "error",
-            });
-          })
-          .finally(() => {
-            setTimeout(() => {
-              this.loaddingButtonSaveNumber = false;
-            }, 500);
-          });
       });
     },
 
@@ -1025,37 +1052,23 @@ export default {
       this.searchKidsPackageByProperties();
     },
 
-    /**
-     * tìm tất cả các khối trong một trường
-     */
-    async getAllGrade() {
-      await GradeService.getGradeInPrinciple()
-        .then((resp) => {
-          this.gradeOfSchoolList = resp.data.data;
-          if (this.gradeOfSchoolList.length > 0) {
-            this.dataSearch.idGrade = this.gradeOfSchoolList[0].id;
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+
     /**
      * tìm tất cả lớp trong một khối
      */
     async getClassInGrade() {
       await MaClassService.getClassInGrade(this.dataSearch.idGrade)
-        .then((resp) => {
-          this.classOfGradeList = resp.data.data;
-          if (this.classOfGradeList.length > 0) {
-            this.dataSearch.idClass = this.classOfGradeList[0].id;
-          } else {
-            this.dataSearch.idClass = "";
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+          .then((resp) => {
+            this.classOfGradeList = resp.data.data;
+            if (this.classOfGradeList.length > 0) {
+              this.dataSearch.idClass = this.classOfGradeList[0].id;
+            } else {
+              this.dataSearch.idClass = "";
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
     },
     /**
      * tìm kiếm tất cả khoản của các học sinh
@@ -1064,38 +1077,38 @@ export default {
       this.textTable = "";
       this.loadingData = true;
       FnFeesService.searchPackageKidsForApproved(
-        this.dataSearch.date,
-        this.dataSearch.status,
-        this.dataSearch.idClass,
-        this.dataSearch.fullName,
-        ""
+          this.dataSearch.date,
+          this.dataSearch.status,
+          this.dataSearch.idClass,
+          this.dataSearch.fullName,
+          ""
       )
-        .then((resp) => {
-          this.responseDataList = resp.data.data;
-        })
-        .catch((err) => {
-          if (err.response.status == 403) {
-            this.$router.push("/error/forbidden");
-          } else {
-            this.$message({
-              message: err.response.data.message,
-              type: "error",
-            });
-          }
-          this.responseDataList = [];
-        })
-        .finally(() => {
-          if (this.responseDataList.length == 0) {
-            this.textTable = this.$tableEmpty;
-          }
-          this.loadingData = false;
-        });
+          .then((resp) => {
+            this.responseDataList = resp.data.data;
+          })
+          .catch((err) => {
+            if (err.response.status == 403) {
+              this.$router.push("/error/forbidden");
+            } else {
+              this.$message({
+                message: err.response.data.message,
+                type: "error",
+              });
+            }
+            this.responseDataList = [];
+          })
+          .finally(() => {
+            if (this.responseDataList.length == 0) {
+              this.textTable = this.$tableEmpty;
+            }
+            this.loadingData = false;
+          });
     },
 
     async fetchDataMany() {
       this.getCurrentDate();
-      await Promise.all([this.getAllGrade()]);
       await this.getClassInGrade();
+      await this.getIdClass()
       this.searchKidsPackageByProperties();
     },
   },
@@ -1107,60 +1120,77 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/deep/.el-tabs__nav {
+/deep/ .el-tabs__nav {
   background: #a0a19ce0;
 }
-/deep/.el-tabs__item {
+
+/deep/ .el-tabs__item {
   color: white;
 }
-/deep/.el-tabs__item.is-active {
+
+/deep/ .el-tabs__item.is-active {
   color: white;
   background: #78a5e7;
 }
-/deep/.el-form-item__label {
+
+/deep/ .el-form-item__label {
   font-family: Arial, Helvetica, sans-serif;
 }
-/deep/.el-tabs__nav-scroll {
+
+/deep/ .el-tabs__nav-scroll {
   float: right;
 }
-/deep/.el-tabs__header {
+
+/deep/ .el-tabs__header {
   margin-bottom: 0;
 }
-/deep/.el-tabs--card > .el-tabs__header .el-tabs__item.is-active {
+
+/deep/ .el-tabs--card > .el-tabs__header .el-tabs__item.is-active {
   border-bottom-color: #78a5e7;
 }
-/deep/.el-tabs--card > .el-tabs__header {
+
+/deep/ .el-tabs--card > .el-tabs__header {
   border-bottom: none;
 }
-/deep/.el-table .cell {
+
+/deep/ .el-table .cell {
   line-height: 15px;
 }
-/deep/.el-table th > .cell {
+
+/deep/ .el-table th > .cell {
   font-size: 13px;
 }
-/deep/.el-checkbox__inner {
+
+/deep/ .el-checkbox__inner {
   border: 1px solid gray;
 }
-/deep/.el-table td {
+
+/deep/ .el-table td {
   padding: 8px 0;
 }
-/deep/.el-table th {
+
+/deep/ .el-table th {
   padding: 12px 0;
 }
-/deep/.el-icon-arrow-right:before {
+
+/deep/ .el-icon-arrow-right:before {
   content: "";
 }
+
 .input-common {
   margin-right: 5px;
 }
+
 .button-bottom {
   border-radius: 0;
   margin-left: 5px;
 }
+
 .button-click {
   float: right;
   margin: 20px 0 40px 0;
 }
+
 .el-dropdown-menu {
   position: absolute;
   top: 0;
@@ -1172,15 +1202,18 @@ export default {
   border-radius: 0;
   box-shadow: 0 2px 12px 0 #0000001a;
 }
+
 .el-dropdown-menu li {
   color: white;
   border-top: 1px solid white;
   font-family: Arial, Helvetica, sans-serif;
 }
+
 .over-table {
   width: 97%;
   margin: 0 auto;
 }
+
 .table-data {
   width: 100%;
   border-collapse: collapse;
@@ -1188,30 +1221,36 @@ export default {
 
   // display: inline-block;
 }
+
 .wrapper-table {
   height: 600px;
   overflow-y: scroll;
   border-bottom: 1px solid #ebeef5;
 }
-/deep/input::-webkit-outer-spin-button,
-/deep/input::-webkit-inner-spin-button {
+
+/deep/ input::-webkit-outer-spin-button,
+/deep/ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-/deep/.el-input--small .el-input__inner {
+
+/deep/ .el-input--small .el-input__inner {
   text-align: center;
 }
+
 thead {
   background: #78a5e7;
   color: white;
   font-weight: bold;
 }
+
 tbody {
   color: #606266;
   font-size: 14px;
   overflow: auto;
   font-family: Arial, Helvetica, sans-serif;
 }
+
 // td {
 //   padding: 12px;
 // }
@@ -1219,23 +1258,29 @@ tbody {
   width: 10px;
   text-align: center;
 }
+
 .table-item-name {
   width: 200px;
   text-align: center;
 }
+
 .table-action {
   width: 200px;
   text-align: center;
 }
+
 .color-text-reply {
   color: #4177e2;
 }
+
 .input-data {
   width: 60%;
 }
+
 .disable-row {
   background: #e4e7ed;
 }
+
 .high-light {
   color: blue;
   font-weight: bold;

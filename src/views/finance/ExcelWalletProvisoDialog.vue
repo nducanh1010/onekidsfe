@@ -75,6 +75,8 @@
 </template>
 
 <script>
+import {mapActions, mapGetters} from "vuex";
+
 const valkidStatusList = [
   { key: "STUDYING", value: "Đang học" },
   { key: "STUDY_WAIT", value: "Chờ học" },
@@ -83,7 +85,6 @@ const valkidStatusList = [
 ];
 import FnFeesService from "@/services/FnFeesService";
 import MaClassService from "@/services/MaClassService";
-import GradeService from "@/services/GradeService";
 export default {
   props: {
     dialogVisible: null,
@@ -104,7 +105,19 @@ export default {
       styleCols2: [],
     };
   },
+  created() {
+    this.fetchDataGradeOfSchoolList();
+  },
+  computed: {
+    getAppTypeUserLogin() {
+      return this.$store.state.auth.user.appType;
+    },
+    ...mapGetters('gradeStore', ['gradeOfSchoolList']),
+    ...mapGetters('classStore', ['classOfGradeList']),
+  },
   methods: {
+    ...mapActions('gradeStore', ['fetchDataGradeOfSchoolList']),
+    ...mapActions('classStore', ['fetchDataClassOfGradeList']),
     //reset when click x
     closeDialog() {
       this.$emit("dialog-close");
@@ -223,19 +236,13 @@ export default {
       this.styleCols1.push(styleCol2);
       this.styleCols2.push(style1);
     },
-
-    async getAllGrade() {
-      await GradeService.getGradeInPrinciple()
-        .then((resp) => {
-          this.gradeOfSchoolList = resp.data.data;
+    /**
+     * tìm tất cả khoi trong một truong
+     */
+     getIdGrade() {
           if (this.gradeOfSchoolList.length > 0) {
             this.dataSearch.idGrade = this.gradeOfSchoolList[0].id;
           }
-          this.changeGradeSearch();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     },
     /**
      * tìm tất cả lớp trong một khối
@@ -255,6 +262,7 @@ export default {
         });
     },
     async changeGradeSearch() {
+      await this.getIdGrade();
       await this.getClassInGrade();
     },
   },

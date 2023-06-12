@@ -296,79 +296,9 @@ export default {
   },
   methods: {
     checkPermission,
-    // xuất file excel
-    // handleExport() {
-    //   let selectRowList = this.multipleSelection;
-    //   console.log(this.multipleSelection);
-    //   if (selectRowList.length == 0) {
-    //     this.$message({
-    //       message: "Không có lớp nào được chọn",
-    //       type: "error",
-    //     });
-    //     return;
-    //   }
-    //   if (selectRowList.length > 1) {
-    //     this.$message({
-    //       message: "Chỉ được phép chọn  một lớp",
-    //       type: "error",
-    //     });
-    //     return;
-    //   }
-    //   (this.loaddingExcel = true),
-    //     this.$confirm("Bạn có chắc chắn muốn xuất file không?", "Thông báo!", {
-    //       distinguishCancelAndClose: true,
-    //       closeOnClickModal: false,
-    //       confirmButtonText: "Có",
-    //       cancelButtonText: "Không",
-    //     })
-    //       .then(() => {
-    //         let myDate = moment(new Date()).format("DD-MM-YYYY");
-    //         let id = selectRowList[0].id;
-    //         let name = selectRowList[0].className;
-    //         let status = "STUDYING";
-    //         return http
-    //           .get(
-    //             `student/list-by-grade-class/?status=` +
-    //               status +
-    //               `&idClass=` +
-    //               id
-    //           )
-    //           .then((response) => {
-    //             console.log(response.data);
-    //             const url = window.URL.createObjectURL(
-    //               new Blob([response.data])
-    //             );
-    //             const link = document.createElement("a");
-    //             link.href = url;
-    //             link.setAttribute(
-    //               "download",
-    //               "QUAN_LY_HOC_SINH_THEO_LOP_" + name + "_" + myDate + ".xlsx"
-    //             );
-    //             document.body.appendChild(link);
-    //             link.click();
-    //           })
-    //           .catch((err) => {
-    //             console.log(err);
-    //             this.$message({
-    //               message: "không có học sinh",
-    //               type: "error",
-    //             });
-    //           })
-    //           .finally(() => {
-    //             setTimeout(() => {
-    //               this.loaddingExcel = false;
-    //             }, 500);
-    //           });
-    //       })
-    //       .catch(() => {
-    //         setTimeout(() => {
-    //           this.loaddingExcel = false;
-    //         }, 500);
-    //       });
-    // },
     handleExport() {
       let selectRowList = this.multipleSelection;
-      if (selectRowList.length == 0) {
+      if (selectRowList.length === 0) {
         this.$message({
           message: "Không có lớp nào được chọn",
           type: "error",
