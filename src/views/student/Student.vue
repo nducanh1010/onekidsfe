@@ -584,15 +584,15 @@ export default {
       return this.$store.state.auth.user.appType;
     },
     ...mapGetters('gradeStore', ['gradeOfSchoolList']),
-    ...mapGetters('classStore', ['listClassInGrade']),
+    ...mapGetters('classStore', ['classOfGradeList']),
 
   },
   mounted() {
-    this.classList = this.listClassInGrade;
+    this.classList = this.classOfGradeList;
   },
   methods: {
     ...mapActions('gradeStore', ['fetchDataGradeOfSchoolList']),
-    ...mapActions('classStore', ['fetchDataListClassInGrade']),
+    ...mapActions('classStore', ['fetchDataClassOfGradeList']),
     checkPermission,
     tableHeaderColor() {
       return "background-color: #78a5e7;color: #fff;font-weight: bold";
