@@ -2,19 +2,19 @@
   <div class="app-wrapper">
     <Menu style="float: left" />
     <navbar />
-    <router-view />
+    <section class="app-main">
+      <router-view></router-view>
+    </section>
   </div>
 </template>
 
 <script>
-// import AppMain from "./components/AppMain.vue";
 import Navbar from "./components/Navbar.vue";
 import Menu from "./components/Menu.vue";
 
 export default {
   name: "Layout",
   components: {
-
     Navbar,
     Menu,
   },
@@ -26,5 +26,10 @@ export default {
   position: relative;
   height: 100%;
   width: 100%;
+}
+.app-main {
+  min-height: calc(100vh - 50px);
+  overflow: hidden;
+  padding: 20px 30px 0 30px;
 }
 </style>

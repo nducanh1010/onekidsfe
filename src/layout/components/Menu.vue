@@ -315,7 +315,7 @@
           <i class="el-icon-money" />
           <span>Học phí &amp; dịch vụ II</span>
         </template>
-   <router-link to="finance/v2/import_export"
+   <router-link to="finance/v2"
                 class="router-link"
                 replace>
         <el-menu-item>
@@ -2085,6 +2085,7 @@ export default {
       return this.$store.getters["layout/getIsOpenClose"];
     },
     getAppTypeUserLogin() {
+      console.log('Type: ',this.$store.state.auth.user.appType)
       return this.$store.state.auth.user.appType;
     },
   },
