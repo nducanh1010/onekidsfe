@@ -1,12 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../views/Home'
-
 Vue.use(Router)
-
 import Layout from '@/layout'
 import Master from '@/layout/components/Master.vue'
-
 export const constantRoutes = [
   // {
   //   path:'/fee-data-table',
@@ -754,6 +751,7 @@ export const constantRoutes = [
 const createRouter = () => new Router({
   mode: 'history',
   routes: constantRoutes
+
 })
 
 const router = createRouter()

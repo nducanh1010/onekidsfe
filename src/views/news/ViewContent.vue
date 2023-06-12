@@ -43,9 +43,7 @@
           action
           multiple
           :auto-upload="false"
-          :on-change="handleChangeFile"
           :limit="5"
-          :on-exceed="handleExceed"
           :file-list="viewContent.urlFileAppSendList"
           :on-preview="handleFileRequest"
         >

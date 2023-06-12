@@ -1,7 +1,7 @@
 <template>
   <div class="table-content row-data">
     <!-- chi tiết khoản các học sinh -->
-    <el-table ref="kidsPackageForKidsRef" :data="responseFilterList" :empty-text="textTable" v-loading="loadingData"
+    <el-table ref="kidsPackageForKidsRef" :data="feeDataTable" :empty-text="textTable" v-loading="loadingData"
               :element-loading-text="$tableLoadding" element-loading-spinner="el-icon-loading"
               element-loading-background="rgba(255,255,255, 0)" :cell-style="tableRowStyle"
               :header-cell-style="tableHeaderColor" @selection-change="handleSelectionChange" :max-height="$tableMaxHeight"
@@ -177,5 +177,20 @@
     </div>
   </div>
 </template>
-<script setup>
+<script >
+export  default {
+  name:"FeeDataTable",
+  data(){
+    return{
+      feeDataTable:[], // dữ liệu bảng lấy từ vuex
+      multipleSelected:[] // Dữ liệu chọn nhiều ô
+    }
+
+  },
+  methods:{
+    handleSelectionChange(arrRows){
+        this.multipleSelected=arrRows
+    }
+  }
+}
 </script>

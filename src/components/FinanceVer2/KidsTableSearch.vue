@@ -30,8 +30,8 @@
                    :label="item.className"></el-option>
       </el-select>
       <!-- trạng thái -->
-      <el-select class="input-common input-class" style="width: 145px" clearable v-model="dataSearch.statusOrder"
-                 placeholder="Chọn trạng thái" @change="filterChangeStatusMethod()">
+      <el-select class="input-common input-class" style="width: 145px" clearable
+                 placeholder="Chọn trạng thái">
         <el-option value="orderYet" label="Chưa có hóa đơn"></el-option>
         <el-option value="orderNo" label="Chưa có khoản"></el-option>
         <el-option value="completeNo" label="Chưa hoàn thành"></el-option>
@@ -41,9 +41,9 @@
         <el-option value="orderInComplete" label="Còn tồn hóa đơn"></el-option>
       </el-select>
       <el-input class="input-common input-class" style="width: 220px" placeholder="Nhập tên học sinh" clearable
-                v-model="dataSearch.fullName" @clear="searchOrderKidsByProperties()"
-                @keyup.enter.native="searchOrderKidsByProperties()">
-        <el-button v-slot:append icon="el-icon-search" @click="searchOrderKidsByProperties()"></el-button>
+
+                >
+        <el-button slot="append" icon="el-icon-search"></el-button>
       </el-input>
       </div>
   </div>

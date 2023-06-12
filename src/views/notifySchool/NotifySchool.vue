@@ -76,7 +76,6 @@
         element-loading-background="rgba(255,255,255, 0)"
         :data="responseDataList"
         highlight-current-row
-        :row-style="tableRowStyle"
         :header-cell-style="tableHeaderColor"
         @selection-change="handleSelectionChange"
         border

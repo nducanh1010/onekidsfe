@@ -5,19 +5,19 @@
         <div class="grid-content-over bg-over-1">
           <div class="content-line-1 color-1">
             <i class="el-icon-user-solid"></i>
-            Tổng số học sinh: {{ statisticalData.kidsTotal.total }}
+            Tổng số học sinh: {{ statisticalData.kidsTotal?.total }}
           </div>
           <div class="content-line-1 color-1">
             <i class="el-icon-user-solid"></i>
-            Số học sinh đang học: {{ statisticalData.kidsTotal.study }}
+            Số học sinh đang học: {{ statisticalData.kidsTotal?.study }}
           </div>
           <div class="content-line-1 color-1">
             <i class="el-icon-user-solid"></i>
-            Số học sinh bảo lưu: {{ statisticalData.kidsTotal.reserve }}
+            Số học sinh bảo lưu: {{ statisticalData.kidsTotal?.reserve }}
           </div>
           <div class="content-line-1 color-1">
             <i class="el-icon-user-solid"></i>
-            Số học sinh chờ học: {{ statisticalData.kidsTotal.wait }}
+            Số học sinh chờ học: {{ statisticalData.kidsTotal?.wait }}
           </div>
         </div>
       </el-col>
@@ -25,21 +25,21 @@
         <div class="grid-content-over bg-over-2">
           <div class="content-line-1 color-2">
             <i class="el-icon-document-checked"></i>
-            Đã điểm danh: {{ statisticalData.attendanceTotal.attendaceYes }}
+            Đã điểm danh: {{ statisticalData.attendanceTotal?.attendaceYes }}
           </div>
           <div class="content-line-1 color-2">
             <i class="el-icon-document-delete"></i>
-            Chưa điểm danh: {{ statisticalData.attendanceTotal.attendaceNo }}
+            Chưa điểm danh: {{ statisticalData.attendanceTotal?.attendaceNo }}
           </div>
           <div class="content-line-1 color-2">
             <i class="el-icon-tableware"></i>
             Đã điểm danh ăn:
-            {{ statisticalData.attendanceTotal.attendanceEatYes }}
+            {{ statisticalData.attendanceTotal?.attendanceEatYes }}
           </div>
           <div class="content-line-1 color-2">
             <i class="el-icon-tableware"></i>
             Chưa điểm danh ăn:
-            {{ statisticalData.attendanceTotal.attendanceEatNo }}
+            {{ statisticalData.attendanceTotal?.attendanceEatNo }}
           </div>
         </div>
       </el-col>
@@ -47,19 +47,19 @@
         <div class="grid-content-over bg-over-3">
           <div class="content-line-1 color-3">
             <i class="el-icon-user-solid"></i>
-            Số học sinh đi học: {{ statisticalData.leaveTotal.goSchool }}
+            Số học sinh đi học: {{ statisticalData?.leaveTotal?.goSchool }}
           </div>
           <div class="content-line-1 color-3">
             <i class="el-icon-user-solid"></i>
-            Số học sinh đã về: {{ statisticalData.leaveTotal.leaveYes }}
+            Số học sinh đã về: {{ statisticalData?.leaveTotal?.leaveYes }}
           </div>
           <div class="content-line-1 color-3">
             <i class="el-icon-user-solid"></i>
-            Số học sinh chưa về: {{ statisticalData.leaveTotal.leaveNo }}
+            Số học sinh chưa về: {{ statisticalData?.leaveTotal?.leaveNo }}
           </div>
           <div class="content-line-1 color-3">
             <i class="el-icon-user-solid"></i>
-            Số học sinh đón muộn: {{ statisticalData.leaveTotal.pickupLater }}
+            Số học sinh đón muộn: {{ statisticalData?.leaveTotal?.pickupLater }}
           </div>
         </div>
       </el-col>
@@ -67,20 +67,20 @@
         <div class="grid-content-over bg-over-4">
           <div class="content-line-1 color-4">
             <i class="el-icon-chat-line-square"></i>
-            Số lời nhắn: {{ statisticalData.otherTotal.message }}
+            Số lời nhắn: {{ statisticalData?.otherTotal?.message }}
           </div>
           <div class="content-line-1 color-4">
             <i class="el-icon-edit-outline"></i>
-            Số dặn thuốc: {{ statisticalData.otherTotal.medicine }}
+            Số dặn thuốc: {{ statisticalData?.otherTotal?.medicine }}
           </div>
           <div class="content-line-1 color-4">
             <i class="el-icon-user-solid"></i>
-            Số học sinh nghỉ học: {{ statisticalData.otherTotal.absent }}
+            Số học sinh nghỉ học: {{ statisticalData?.otherTotal?.absent }}
           </div>
           <div class="content-line-1 color-4">
             <i class="el-icon-document-remove"></i>
             Đơn xin nghỉ chưa duyệt:
-            {{ statisticalData.otherTotal.absentLetterNoConfirm }}
+            {{ statisticalData?.otherTotal?.absentLetterNoConfirm }}
           </div>
         </div>
       </el-col>
@@ -294,6 +294,7 @@ export default {
       DashboardService.getStatisticalInSchool()
         .then((resp) => {
           this.statisticalData = resp.data.data;
+          console.log('data Statis',this.statisticalData)
         })
         .catch((err) => {
           console.log(err);
